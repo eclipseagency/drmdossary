@@ -725,8 +725,7 @@ vercel = {
                  "value": "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"}
             ]
         }
-    ],
-    "trailingSlashRedirect": True
+    ]
 }
 write_file("vercel.json", json.dumps(vercel, indent=2))
 
