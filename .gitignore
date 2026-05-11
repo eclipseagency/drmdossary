@@ -1,6 +1,7 @@
 backup-source/
 *.sql
 *.xml
+!sitemap.xml
 *.zip
 *.tar.gz
 wp-admin/
@@ -15,3 +16,11 @@ backup-source/*.sql
 backup-source/public_html/wp-config.php
 
 backup-source/public_html/.private/
+
+# Tooling
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+.vercel
+
