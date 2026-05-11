@@ -1,0 +1,10 @@
+backup-source/
+*.sql
+*.xml
+*.zip
+*.tar.gz
+wp-admin/
+wp-includes/
+wp-content/plugins/
+wp-content/cache/
+wp-content/wflogs/
