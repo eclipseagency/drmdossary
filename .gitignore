@@ -1,26 +1,29 @@
+# Old WordPress backup material — never commit
 backup-source/
 *.sql
 *.xml
 !sitemap.xml
 *.zip
 *.tar.gz
+*.tgz
+*.bak
+wp-config.php
 wp-admin/
 wp-includes/
-wp-content/plugins/
-wp-content/cache/
-wp-content/wflogs/
-backup-source/public_html.tar.gz
+wp-content/
+.htaccess
 
-backup-source/*.sql
-
-backup-source/public_html/wp-config.php
-
-backup-source/public_html/.private/
-
-# Tooling
+# Generated locally during regeneration
 __pycache__/
 *.pyc
+
+# Editor / OS
 .DS_Store
+Thumbs.db
+
+# Local tooling
 node_modules/
 .vercel
-
+.env
+.env.*
+!.env.example

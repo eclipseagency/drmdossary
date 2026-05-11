@@ -425,6 +425,7 @@ def render_layout(*, lang: str, dir_: str, title: str, description: str,
 <meta property="og:type" content="website">
 <meta property="og:url" content="{html.escape(canonical)}">
 <link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/site.js" defer></script>
 </head>
 <body class="lang-{lang}">
 <a class="skip-link" href="#main">Skip to content</a>

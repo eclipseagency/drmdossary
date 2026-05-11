@@ -48,13 +48,69 @@ serves directly from the root: `/` (Arabic) and `/en/` (English).
 └─ backup-source/              raw WP backup; ignored by git, never deployed
 ```
 
-## Rebuilding
+## Run, build, and deploy
+
+The site is **pure static HTML** — no Node, no PHP, no database. The
+generated files already live in the repo, so nothing has to be built
+before deploying. The commands below are for local preview and (only if
+you ever need to regenerate from the SQL dump) for re-running the
+sanitizer.
+
+### Install dependencies
+
+Nothing is required for serving. Only the regenerator needs Python deps:
 
 ```bash
+# Optional — only if you plan to re-run scripts/build_site.py
 pip install beautifulsoup4 lxml
-python3 scripts/parse_sql.py      # writes /tmp/extract/*.json
-python3 scripts/build_site.py     # regenerates all static pages
 ```
+
+### Run locally
+
+Any static file server works. Pick one:
+
+```bash
+# Python (stdlib only)
+python3 -m http.server 8000
+
+# or Node (no install needed)
+npx serve .
+```
+
+Then open <http://localhost:8000/>.
+
+### Build
+
+No build step. The HTML in the repo *is* the build output. If you have
+the original `backup-source/` available and want to regenerate:
+
+```bash
+python3 scripts/parse_sql.py      # reads backup-source/*.sql → /tmp/extract/*.json
+python3 scripts/build_site.py     # rewrites every page from the parsed data
+```
+
+### Push to GitHub
+
+```bash
+git add -A
+git commit -m "Update site"
+git push origin main
+```
+
+### Deploy on Vercel
+
+First time:
+
+```bash
+npx vercel link        # one-time: connect this folder to a Vercel project
+npx vercel --prod      # deploy to production
+```
+
+After that, Vercel auto-deploys on every push to `main` once the GitHub
+integration is enabled. `vercel.json` already configures clean URLs,
+security headers, and redirects for legacy WordPress endpoints.
+
+## Sanitization
 
 The build script keeps an allow-list of safe HTML tags/attributes and
 sanitizes every retained post body. See `SECURITY_REPORT.md` for the full
