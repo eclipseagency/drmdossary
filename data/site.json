@@ -4,12 +4,21 @@
   "pages": [
     {
       "id": 27,
-      "title": "الرئيسية",
+      "title": "رعاية شاملة لرؤية أوضح وحياة أفضل",
       "slug": "ar",
       "lang": "ar",
       "url": "/",
       "seo_title": "علاج القرنية المخروطية في الرياض | جراحات القرنية | د. الدوسري",
       "seo_description": "احصل على علاجات متقدمة للقرنية المخروطية في الرياض مع الدكتور الدوسري. جراحات القرنية وزراعتها بخبرة للحصول على رؤية واضحة. احجز موعدك اليوم!"
+    },
+    {
+      "id": 1581,
+      "title": "Comprehensive care for clearer vision and a better life",
+      "slug": "en",
+      "lang": "en",
+      "url": "/en/",
+      "seo_title": "Eye Doctor in Riyadh | Eye Surgery in Riyadh Saudi Arabia | Dr Dossary",
+      "seo_description": "find top eye care & eye doctor in Riyadh with Dr. Dossary. Specializing in advanced eye surgery and comprehensive eye exams. Book your appointment today!"
     },
     {
       "id": 29,
@@ -93,15 +102,6 @@
       "seo_description": ""
     },
     {
-      "id": 1581,
-      "title": "Home",
-      "slug": "en",
-      "lang": "en",
-      "url": "/en/",
-      "seo_title": "Eye Doctor in Riyadh | Eye Surgery in Riyadh Saudi Arabia | Dr Dossary",
-      "seo_description": "find top eye care & eye doctor in Riyadh with Dr. Dossary. Specializing in advanced eye surgery and comprehensive eye exams. Book your appointment today!"
-    },
-    {
       "id": 1614,
       "title": "About Us",
       "slug": "en/about-us",
@@ -163,15 +163,6 @@
       "url": "/en/faq/",
       "seo_title": "الأسئلة الشائعة - إجابات على أسئلتك | د. م. الدوسري",
       "seo_description": "Get answers to your dental care questions with Dr. M. Dossary's comprehensive FAQs. Get insights and expert advice for a healthier, brighter smile!"
-    },
-    {
-      "id": 1727,
-      "title": "Blog",
-      "slug": "en/blog",
-      "lang": "en",
-      "url": "/en/blog/",
-      "seo_title": "Our Blog - Health Tips & Medical Insights | Dr. M. Dossary Clinic",
-      "seo_description": "Get expert insights and the latest health tips on Dr. Al-Dossary's blog. Stay informed, improve well-being, and live healthier! Explore now!"
     }
   ],
   "posts": [
