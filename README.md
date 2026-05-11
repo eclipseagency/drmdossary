@@ -39,8 +39,8 @@ serves directly from the root: `/` (Arabic) and `/en/` (English).
 ├─ en/                         English mirror
 ├─ assets/site.css, site.js    shared CSS/JS
 ├─ data/site.json              machine-readable content snapshot
-├─ data/needed-uploads.txt     97 media files still needed (drop into public/uploads/)
-├─ public/uploads/             where the original media must be restored
+├─ data/needed-uploads.txt     97 media files still needed (drop into uploads/)
+├─ uploads/                    where the original media must be restored
 ├─ scripts/parse_sql.py        text-only SQL extractor (no execution)
 ├─ scripts/build_site.py       sanitizer + static-site generator
 ├─ SECURITY_REPORT.md          all suspicious findings
@@ -121,5 +121,5 @@ list of stripped tags, blocked URL schemes, and excluded posts.
 The backup tarball does **not** contain `wp-content/uploads/`. The list of
 files still needed is in `data/needed-uploads.txt`. Obtain them from your
 hosting provider's file backup (Hostinger / cPanel) and copy them into
-`public/uploads/` preserving the same `YYYY/MM/...` folder structure that
+`uploads/` preserving the same `YYYY/MM/...` folder structure that
 WordPress used.
