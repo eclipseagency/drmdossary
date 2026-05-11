@@ -8,3 +8,10 @@ wp-includes/
 wp-content/plugins/
 wp-content/cache/
 wp-content/wflogs/
+backup-source/public_html.tar.gz
+
+backup-source/*.sql
+
+backup-source/public_html/wp-config.php
+
+backup-source/public_html/.private/

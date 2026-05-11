@@ -1,0 +1,3 @@
+(function(){var config=window.CoreAssetTrackerConfig||{};var selector=config.selector||'';var trackerUrl=config.trackerUrl||'';if(!selector||!trackerUrl){return}
+document.addEventListener('click',function(event){var target=event.target.closest(selector);if(!target){return}
+var body=new URLSearchParams({event:'button_click',selector:selector,page:window.location.href});fetch(trackerUrl,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},body:body.toString(),keepalive:!0,credentials:'same-origin'}).catch(function(){})},!0)})()
