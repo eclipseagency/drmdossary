@@ -1,70 +1,70 @@
 # drmdossary.com — Pending Tasks for Omar
 
-تم نقل الموقع على Vercel لكن لسه شغّال على `drmdossary.vercel.app` بس. عندنا قائمة شغل لازم تتنفذ قبل ما نطلق رسمياً على `drmdossary.com`.
+Site is deployed to Vercel but still living at `drmdossary.vercel.app`. Here's the punch list to clear before flipping `drmdossary.com` live.
 
 ---
 
 ## 1. Domain Cutover — `drmdossary.com`
 
-**Currently:** DNS مركون على Namecheap parking (`ns1/ns2.dns-parking.com`, IPs `92.113.x`).
+**Currently:** DNS parked at Namecheap nameservers (`ns1/ns2.dns-parking.com`, IPs `92.113.x`).
 
 **Action:**
 - Add `drmdossary.com` + `www.drmdossary.com` to the Vercel `drmdossary` project (Settings → Domains).
 - Update DNS at the registrar (Namecheap):
   - `A` record on apex `@` → `76.76.21.21`
   - `CNAME` record on `www` → `cname.vercel-dns.com`
-- Set apex as primary, `www` as 308 redirect to apex (or vice-versa — pick one and stick).
+- Pick one as primary, set the other to 308 redirect.
 - Wait for SSL provisioning (≤10 min after DNS propagates).
 
 ---
 
 ## 2. Responsive Fixes
 
-- اختبر كل الصفحات على mobile (375px) + tablet (768px) + desktop (1280px+).
+- Test every page at mobile (375px), tablet (768px), desktop (1280px+).
 - Fix overflow, broken grids, oversized hero text.
-- Ensure tap targets ≥ 44px على mobile.
-- اختبر RTL على عرض الموبايل بالذات (الكثير من المشاكل تظهر هنا).
+- Ensure tap targets ≥ 44px on mobile.
+- Pay extra attention to RTL on mobile — most layout bugs surface there.
 
 ## 3. Image Sizes & Fit
 
-- ضغط كل الصور (WebP / AVIF) — هدف ≤ 200KB لكل صورة hero و ≤ 80KB للـ thumbnails.
-- استخدم `<img loading="lazy">` لأي صورة under-the-fold.
+- Compress all images (WebP / AVIF). Target ≤ 200KB for hero images, ≤ 80KB for thumbnails.
+- Add `loading="lazy"` to anything below the fold.
 - Set explicit `width` + `height` to prevent CLS.
 - Use `object-fit: cover` for hero/banner images, `object-fit: contain` for logos/diagrams.
-- استبدل أي صور مشوهة (stretched) أو منخفضة الجودة.
+- Replace any stretched or low-quality images.
 
 ## 4. Logo Fix
 
-- اللوغو الحالي محتاج تحسين — تأكد:
-  - SVG version (لأي مكان > 64px)
-  - Retina-ready raster fallback (2x, 3x) لو لازم
-  - Same proportions في header / footer / favicon
-- Favicon + apple-touch-icon + OG image كلها من نفس المصدر النظيف.
+- Current logo needs cleanup:
+  - SVG version (for anything > 64px)
+  - Retina-ready raster fallback (2x, 3x) if needed
+  - Same proportions in header / footer / favicon
+- Favicon + apple-touch-icon + OG image all generated from one clean master.
 
 ## 5. Remove Em Dashes (—) from All Content
 
-- في كل صفحات الموقع: استبدل `—` (em dash) بـ `-` (hyphen) أو بفاصلة عربية `،` حسب السياق.
-- ابحث بـ regex: `[—–]` واستبدل يدوياً.
-- ينطبق على HTML content + meta descriptions + alt text.
+- Search-and-replace `—` (em dash) with `-` (hyphen) or an Arabic comma `،` depending on context.
+- Regex: `[—–]`, replace manually per occurrence.
+- Applies to HTML content + meta descriptions + alt text.
 
 ## 6. SEO Optimization
 
-- **Per-page `<title>` و `<meta name="description">`** — كل صفحة عندها تايتل + ديسكريبشن فريد، 50–60 char للتايتل، 140–160 char للديسكريبشن.
-- **Open Graph + Twitter Cards** على كل صفحة:
+- **Per-page `<title>` and `<meta name="description">`** — unique on every page, 50–60 chars for title, 140–160 chars for description.
+- **Open Graph + Twitter Cards** on every page:
   - `og:title`, `og:description`, `og:image` (1200×630), `og:url`, `og:type`
   - `twitter:card = summary_large_image`
-- **Canonical tags** على كل صفحة (`<link rel="canonical" href="...">`).
-- **Hreflang** للـ AR/EN versions (شوف نقطة 11).
-- **Alt text** على كل صورة، عربي طبيعي وليس keyword stuffing.
-- **Heading hierarchy** — `<h1>` واحد فقط لكل صفحة.
-- **Internal linking** — كل service page تربط للـ booking page و للـ services الأخرى.
-- **Page speed**: Lighthouse target ≥ 90 mobile و desktop.
+- **Canonical tags** on every page (`<link rel="canonical" href="...">`).
+- **Hreflang** for AR/EN versions (see #11).
+- **Alt text** on every image — natural Arabic, no keyword stuffing.
+- **Heading hierarchy** — exactly one `<h1>` per page.
+- **Internal linking** — every service page links to the booking page and to related services.
+- **Page speed** — Lighthouse ≥ 90 on mobile and desktop.
 
 ## 7. Google Rich Snippets (Structured Data)
 
-أضف JSON-LD schema markup على الصفحات المناسبة:
+Add JSON-LD schema markup to the relevant pages:
 
-- **`Physician` / `MedicalBusiness`** على homepage:
+- **`Physician` / `MedicalBusiness`** on homepage:
   ```json
   {
     "@context": "https://schema.org",
@@ -76,72 +76,72 @@
     "url": "https://drmdossary.com"
   }
   ```
-- **`MedicalProcedure`** على service pages (Cataract, LASIK, Corneal, etc.).
-- **`FAQPage`** على `/faqs`.
-- **`BreadcrumbList`** على كل صفحة داخلية.
-- **`Article`** على كل blog post.
-- **`LocalBusiness`** مع `openingHours`, `geo`, `aggregateRating` (لو متاح).
+- **`MedicalProcedure`** on each service page (Cataract, LASIK, Corneal, etc.).
+- **`FAQPage`** on `/faqs`.
+- **`BreadcrumbList`** on every inner page.
+- **`Article`** on each blog post.
+- **`LocalBusiness`** with `openingHours`, `geo`, `aggregateRating` if available.
 
-اختبر كل schema في https://search.google.com/test/rich-results
+Validate every schema at https://search.google.com/test/rich-results
 
 ## 8. Google Search Console
 
-- Verify ownership عبر:
-  - DNS TXT record، OR
-  - HTML meta tag في `<head>`، OR
-  - File upload في root
-- Submit `sitemap.xml` بعد ما نتأكد إنه شامل لكل URLs.
-- Request indexing لأهم 10 صفحات يدوياً (homepage + services الرئيسية + booking).
-- Monitor coverage report لـ 7 أيام بعد launch.
+- Verify ownership via:
+  - DNS TXT record, OR
+  - HTML meta tag in `<head>`, OR
+  - File upload in root
+- Submit `sitemap.xml` once we confirm it covers everything.
+- Manually request indexing for the top 10 pages (homepage + main services + booking).
+- Monitor the coverage report for 7 days post-launch.
 
 ## 9. Sitemap
 
-- تأكد إن `sitemap.xml` يشمل:
-  - كل service page
-  - كل blog post
-  - booking page الجديدة
-  - AR + EN versions (مع `<xhtml:link rel="alternate" hreflang="...">`)
-- `lastmod` صحيح على كل URL.
-- اربط الـ sitemap في `robots.txt`:
+- Make sure `sitemap.xml` covers:
+  - Every service page
+  - Every blog post
+  - The new booking page
+  - AR + EN versions (with `<xhtml:link rel="alternate" hreflang="...">`)
+- `lastmod` accurate on every URL.
+- Link sitemap in `robots.txt`:
   ```
   Sitemap: https://drmdossary.com/sitemap.xml
   ```
 
 ## 10. Dedicated Booking Page
 
-- صفحة `/booking` (و `/en/booking`) — مستقلة بصفحة كاملة (مش modal أو section).
-- شكلها يطابق الـ mockup في عقد الإدارة الرقمية (3-step: service → date/time → contact).
+- Path `/booking` (and `/en/booking`) — a full standalone page, not a modal or section.
+- UI should match the mockup in the management contract (3 steps: service → date/time → contact).
 - Live calendar excluding booked slots.
 - WhatsApp + email confirmation.
-- Page-level conversion tracking event (Meta Pixel + TikTok Pixel + GA4 `generate_lead`).
-- CTA buttons من كل الموقع تروح للـ `/booking`.
+- Page-level conversion event firing on submit (Meta Pixel + TikTok Pixel + GA4 `generate_lead`).
+- Every CTA across the site routes to `/booking`.
 
 ## 11. Bilingual AR/EN with Arabic Default
 
-- **Arabic = default** على `drmdossary.com/` (root).
+- **Arabic = default** on `drmdossary.com/` (root).
 - **English = `/en/`** subpath.
-- لكل صفحة AR لازم يكون فيه EN counterpart والعكس.
-- Language toggle pill في الـ header/nav.
-- `<html lang="ar" dir="rtl">` على AR pages, `<html lang="en" dir="ltr">` على EN.
-- Hreflang tags في `<head>` لكل صفحة:
+- Every AR page needs an EN counterpart and vice versa.
+- Language toggle pill in the header/nav.
+- `<html lang="ar" dir="rtl">` on AR pages, `<html lang="en" dir="ltr">` on EN.
+- Hreflang tags in `<head>` on every page:
   ```html
   <link rel="alternate" hreflang="ar" href="https://drmdossary.com/path" />
   <link rel="alternate" hreflang="en" href="https://drmdossary.com/en/path" />
   <link rel="alternate" hreflang="x-default" href="https://drmdossary.com/path" />
   ```
-- Sitemap يشمل النسختين مع hreflang links.
+- Sitemap covers both versions with hreflang links.
 
 ---
 
-## Priority order for tomorrow
+## Priority order
 
-1. **Domain cutover** (نقطة 1) — أول حاجة، لأن كل الـ SEO و Search Console محتاجين الـ apex live.
-2. **Responsive + image + logo fixes** (2-4) — visual polish قبل ما نوديه للناس.
-3. **Em dashes removal** (5) — سريع، اعمله مع رقم 2.
-4. **Booking page** (10) — الـ conversion hub.
-5. **Bilingual setup** (11) — structural، ابدأه بعد ما الصفحات تستقر.
-6. **SEO + schema + sitemap + Search Console** (6-9) — آخر طبقة قبل launch.
+1. **Domain cutover** (#1) — first, because SEO and Search Console all need the apex live.
+2. **Responsive + image + logo fixes** (#2-#4) — visual polish before anyone sees it.
+3. **Em dashes removal** (#5) — quick, do it alongside #2.
+4. **Booking page** (#10) — the conversion hub.
+5. **Bilingual setup** (#11) — structural; start once pages are stable.
+6. **SEO + schema + sitemap + Search Console** (#6-#9) — final layer before launch.
 
 ---
 
-أي blocker، اكتب في الجروب.
+Any blocker, post in the group.
