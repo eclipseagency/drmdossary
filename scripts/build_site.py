@@ -2,7 +2,7 @@
 """Generate a clean static website from the parsed WordPress dump.
 
 Inputs:  /tmp/extract/*.json (already parsed; no SQL is executed)
-Outputs: project root files (index.html, blog/, about-us/, ...) + public/uploads/
+Outputs: project root files (index.html, blog/, about-us/, ..., uploads/)
          + data/site.json (machine-readable snapshot of cleaned content)
          + SECURITY_REPORT.md
 
@@ -730,8 +730,8 @@ vercel = {
 }
 write_file("vercel.json", json.dumps(vercel, indent=2))
 
-# .gitkeep in public/uploads
-write_file("public/uploads/.gitkeep", "")
+# .gitkeep in uploads/ at the repo root so the folder exists even when empty
+write_file("uploads/.gitkeep", "")
 
 # data snapshot
 write_file("data/site.json", json.dumps(SITE, ensure_ascii=False, indent=2))

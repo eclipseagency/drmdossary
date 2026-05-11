@@ -137,8 +137,9 @@ site therefore points to image paths under `/uploads/...` that currently
 [`data/needed-uploads.txt`](data/needed-uploads.txt) — 97 paths, mostly
 `.png`, `.jpg`, `.jpeg`, `.webp`. To finish the migration you must obtain
 these files from your hosting provider's backup (Hostinger / cPanel
-"File Manager") and drop them into `public/uploads/` preserving the same
-year/month folder structure. Vercel will serve `public/` at the site root.
+"File Manager") and drop them into `uploads/` preserving the same
+year/month folder structure. Vercel serves the repo root at the site root,
+so files at `uploads/2024/02/foo.png` are reachable at `/uploads/2024/02/foo.png`.
 
 No media file was sanitized — they simply aren't here.
 
