@@ -6,11 +6,10 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { type Lang } from '@/lib/content'
 import { HERO_AR, HERO_EN, TRUST_BADGES } from '@/lib/i18n'
-import { TiltCard } from '@/components/TiltCard'
 import { Reveal } from '@/components/Reveal'
 import { TextReveal } from '@/components/TextReveal'
 
-const DOCTOR_HEADSHOT = '/uploads/2024/02/DSC08886-1-removebg-preview.png'
+const HERO_IMG = '/uploads/hero-bg.png'
 
 export function HomeHero({ lang }: { lang: Lang }) {
   const hero = lang === 'ar' ? HERO_AR : HERO_EN
@@ -41,67 +40,47 @@ export function HomeHero({ lang }: { lang: Lang }) {
       ref={ref}
       className="relative isolate overflow-hidden -mt-[80px] md:-mt-[90px] pt-[80px] md:pt-[90px]"
       style={{
+        background:
+          'radial-gradient(60% 60% at 0% 0%, rgba(8,131,149,0.10), transparent 60%), linear-gradient(180deg,#f1f7f9 0%,#ffffff 60%,#eef5f7 100%)',
         ['--spot-x' as string]: '50%',
         ['--spot-y' as string]: '40%',
       }}
     >
-      {/* Background photo */}
-      <span aria-hidden className="absolute inset-0 -z-10">
-        <Image
-          src="/uploads/hero-bg.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-      </span>
-      {/* Very light overlay so the photo stays dominant and the
-          header + text retain enough contrast. Stronger at the bottom
-          so the section blends into the page below. */}
-      <span
-        aria-hidden
-        className="absolute inset-0 -z-[5] bg-[linear-gradient(180deg,rgba(247,249,251,0.35)_0%,rgba(247,249,251,0.18)_45%,rgba(247,249,251,0.88)_100%)]"
-      />
       {/* Cursor spotlight */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 transition-[background] duration-[80ms] respect-motion"
         style={{
           background:
-            'radial-gradient(420px circle at var(--spot-x) var(--spot-y), rgba(8,131,149,.18), rgba(8,131,149,0) 60%)',
+            'radial-gradient(420px circle at var(--spot-x) var(--spot-y), rgba(8,131,149,.14), rgba(8,131,149,0) 60%)',
         }}
       />
-      {/* Floating shapes */}
+      {/* Floating accent shapes */}
       <span
         aria-hidden
-        className="absolute -top-40 end-[-120px] h-[520px] w-[520px] rounded-full bg-brand-500/25 blur-3xl animate-float-a respect-motion"
+        className="absolute -top-32 end-[-120px] h-[420px] w-[420px] rounded-full bg-brand-500/22 blur-3xl animate-float-a respect-motion"
       />
       <span
         aria-hidden
-        className="absolute -bottom-44 start-[-100px] h-[460px] w-[460px] rounded-full bg-brand-600/22 blur-3xl animate-float-b respect-motion"
-      />
-      <span
-        aria-hidden
-        className="hidden md:block absolute top-[40%] start-[38%] h-[320px] w-[320px] rounded-full bg-brand-400/25 blur-3xl animate-float-c respect-motion"
+        className="absolute -bottom-40 start-[-100px] h-[380px] w-[380px] rounded-full bg-brand-600/18 blur-3xl animate-float-b respect-motion"
       />
 
-      <div className="container relative py-12 md:py-20 lg:py-24">
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
-          <div>
+      <div className="container relative py-12 md:py-16 lg:py-20">
+        <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-14 items-center">
+          <div className="order-2 lg:order-1">
             <Reveal>
-              <p className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/80 backdrop-blur border border-brand-500/15 text-brand-600 text-sm font-semibold shadow-[0_2px_12px_rgba(8,131,149,0.10)]">
+              <p className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/90 backdrop-blur border border-brand-500/15 text-brand-600 text-sm font-semibold shadow-[0_2px_12px_rgba(8,131,149,0.10)]">
                 {hero.eyebrow}
               </p>
             </Reveal>
-            <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
+            <h1 className="mt-5 text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.1] tracking-tight">
               <TextReveal text={hero.title} className="grad-text" delay={120} step={55} />
             </h1>
             <p className="mt-6 text-ink-muted text-base md:text-lg max-w-[56ch] leading-relaxed">
               <TextReveal text={hero.lede} delay={500} step={28} offset={10} />
             </p>
             <Reveal delay={240}>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-7 flex flex-wrap gap-3">
                 <Link href={hero.primaryCta.href} className="btn btn-lg btn-primary">
                   {hero.primaryCta.label}
                 </Link>
@@ -110,7 +89,7 @@ export function HomeHero({ lang }: { lang: Lang }) {
                 </Link>
               </div>
             </Reveal>
-            <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 list-none p-0">
+            <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 list-none p-0">
               {badges.map((b, i) => (
                 <Reveal as="li" key={b} delay={300 + i * 80} className="flex items-start gap-3">
                   <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 shadow-ring">
@@ -124,58 +103,26 @@ export function HomeHero({ lang }: { lang: Lang }) {
             </ul>
           </div>
 
-          {/* Doctor card — 3D layered stack */}
+          {/* Doctor portrait — contained, properly sized */}
           <motion.div
-            initial={reduced ? false : { opacity: 0, y: 30 }}
+            initial={reduced ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 0.65, 0.32, 1] }}
-            className="relative w-full max-w-[460px] mx-auto"
-            style={{ perspective: 1400 }}
+            className="order-1 lg:order-2 relative mx-auto w-full max-w-[480px] lg:max-w-[520px] aspect-[4/5] lg:aspect-[5/6]"
           >
-            {/* Outer glow */}
+            {/* Soft radial glow behind */}
             <span
               aria-hidden
-              className="absolute -inset-y-10 -inset-x-8 rounded-[40px] bg-[radial-gradient(60%_60%_at_50%_60%,rgba(8,131,149,.45),rgba(10,77,104,.15)_50%,transparent_75%)] blur-2xl pointer-events-none"
+              className="absolute -inset-6 lg:-inset-10 rounded-[40px] bg-[radial-gradient(60%_60%_at_50%_50%,rgba(8,131,149,0.22),rgba(10,77,104,0.08)_55%,transparent_75%)] blur-2xl pointer-events-none"
             />
-            <TiltCard
-              isRTL={lang === 'ar'}
-              className="group relative aspect-[4/5] animate-doctor-float respect-motion"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              {/* Conic ring */}
-              <span
-                aria-hidden
-                className="absolute inset-0 rounded-[30px] bg-gradient-ring animate-ring-spin respect-motion"
-                style={{
-                  WebkitMask:
-                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  mask:
-                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                  padding: 2,
-                }}
-              />
-              {/* Front frame */}
-              <div className="absolute inset-0 rounded-[30px] overflow-hidden bg-gradient-brand-soft shadow-lift ring-1 ring-white/15 flex items-end justify-center">
-                <span
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      'radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 60%), radial-gradient(circle at 50% 110%, rgba(255,255,255,.22), transparent 55%)',
-                  }}
-                />
-                <Image
-                  src={DOCTOR_HEADSHOT}
-                  alt=""
-                  width={460}
-                  height={576}
-                  priority
-                  className="relative h-full w-full object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
-                />
-              </div>
-            </TiltCard>
+            <Image
+              src={HERO_IMG}
+              alt=""
+              fill
+              priority
+              sizes="(min-width: 1024px) 520px, 90vw"
+              className="object-contain object-bottom drop-shadow-[0_24px_42px_rgba(8,18,30,0.18)]"
+            />
           </motion.div>
         </div>
       </div>
