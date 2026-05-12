@@ -64,14 +64,14 @@ export function Header({ lang, pathname }: { lang: Lang; pathname: string }) {
             <span
               className={cn(
                 'flex items-center justify-center shrink-0 transition-all duration-300',
-                scrolled ? 'h-9 w-9' : 'h-10 w-10',
+                scrolled ? 'h-14 w-14' : 'h-16 w-16',
               )}
             >
               <Image
                 src={LOGO}
                 alt=""
-                width={40}
-                height={40}
+                width={64}
+                height={64}
                 priority
                 className="h-full w-full object-contain"
               />
