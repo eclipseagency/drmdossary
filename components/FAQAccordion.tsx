@@ -47,7 +47,7 @@ function FAQItem({
 }) {
   return (
     <div className="flex flex-col gap-2 sm:gap-2.5">
-      {/* Question pill — aligned to the start side */}
+      {/* Question pill, aligned to the start side */}
       <div className="flex items-stretch justify-start gap-3 sm:gap-3.5">
         <button
           type="button"
@@ -82,7 +82,7 @@ function FAQItem({
         </button>
       </div>
 
-      {/* Answer reply bubble — aligned to the end side, like a WhatsApp reply */}
+      {/* Answer reply bubble, aligned to the end side, like a WhatsApp reply */}
       <AnimatePresence initial={false}>
         {isOpen && (
           <motion.div

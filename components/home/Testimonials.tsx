@@ -64,7 +64,7 @@ export function Testimonials({ lang }: { lang: Lang }) {
     let bestDelta = Infinity
     slides.forEach((s, i) => {
       // For RTL, browsers report scrollLeft as positive or negative depending
-      // on engine — using offsetLeft against the actual track works in both.
+      // on engine, using offsetLeft against the actual track works in both.
       const slideCenter = s.offsetLeft + s.clientWidth / 2 - track.offsetLeft
       const delta = Math.abs(slideCenter - center)
       if (delta < bestDelta) {
@@ -258,7 +258,7 @@ export function Testimonials({ lang }: { lang: Lang }) {
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Pagination dots — compact for 11 items */}
+              {/* Pagination dots, compact for 11 items */}
               <div className="hidden sm:flex items-center gap-1.5" role="tablist" aria-label={isAr ? 'مؤشر التقييمات' : 'Reviews indicator'}>
                 {IMAGES.map((_, i) => (
                   <button

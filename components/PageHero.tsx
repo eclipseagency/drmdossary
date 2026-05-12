@@ -12,7 +12,7 @@ import { TextReveal } from './TextReveal'
  *   * two soft blurred accent glows
  *   * centered single-column content (eyebrow + h1 + lede + CTAs)
  *
- * No side image — every inner page should look like the others.
+ * No side image, every inner page should look like the others.
  */
 export function PageHero({
   eyebrow,
@@ -23,7 +23,7 @@ export function PageHero({
   eyebrow?: string
   title: string
   lede?: string
-  /** ignored — kept for backward compatibility with existing callers */
+  /** ignored, kept for backward compatibility with existing callers */
   image?: string
   imageAlt?: string
   children?: ReactNode

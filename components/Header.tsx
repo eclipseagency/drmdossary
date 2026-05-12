@@ -123,7 +123,7 @@ export function Header({ lang, pathname }: { lang: Lang; pathname: string }) {
               {t.langSwitch}
             </Link>
 
-            {/* Book pill — primary CTA with circular arrow disc */}
+            {/* Book pill, primary CTA with circular arrow disc */}
             <Link
               href={bookHref}
               className="hidden md:inline-flex items-center gap-2 ps-5 pe-1.5 py-1.5 rounded-full bg-brand-500 hover:bg-brand-600 text-white font-bold text-[14.5px] shadow-[0_4px_14px_rgba(8,131,149,0.40)] transition-all hover:-translate-y-px"

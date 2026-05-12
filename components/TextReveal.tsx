@@ -47,8 +47,8 @@ export function TextReveal({
     return as === 'div' ? <div className={className}>{text}</div> : <span className={className}>{text}</span>
   }
 
-  // Split keeping whitespace tokens so the source text — including
-  // multi-space gaps — round-trips exactly.
+  // Split keeping whitespace tokens so the source text, including
+  // multi-space gaps, round-trips exactly.
   const tokens = text.split(/(\s+)/)
 
   const containerVariants: Variants = {
@@ -80,7 +80,7 @@ export function TextReveal({
       whileInView="visible"
       viewport={{ once: true, margin: '0px 0px -10% 0px' }}
       variants={containerVariants}
-      // The container itself should not animate filter — only its words.
+      // The container itself should not animate filter, only its words.
       style={{ display: as === 'span' ? 'inline' : undefined }}
     >
       {tokens.map((tok, i) => {

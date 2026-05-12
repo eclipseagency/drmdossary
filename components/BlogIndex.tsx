@@ -36,7 +36,7 @@ export function BlogIndex({ lang }: { lang: Lang }) {
                 </p>
                 <p className="m-0 mt-1 text-ink-muted">
                   English translations are coming soon. In the meantime you can read the
-                  full Arabic articles below — your browser can translate them automatically.
+                  full Arabic articles below, your browser can translate them automatically.
                 </p>
               </div>
             </div>

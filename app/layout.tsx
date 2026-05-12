@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://drmdossary.com'),
   title: {
-    default: 'د. محمد الدوسري — استشاري طب وجراحة العيون',
+    default: 'د. محمد الدوسري, استشاري طب وجراحة العيون',
     template: '%s',
   },
   description: 'رعاية شاملة لطب وجراحة العيون: تصحيح النظر، علاج المياه البيضاء، وجراحات القرنية.',
