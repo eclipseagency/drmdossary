@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import { type Lang } from '@/lib/content'
-import { getPosts } from '@/lib/content'
+import { getPostsForListing } from '@/lib/content'
 import { Reveal } from '@/components/Reveal'
 import { TextReveal } from '@/components/TextReveal'
 import { BlogCard } from '@/components/BlogCard'
 
 export function BlogPreview({ lang }: { lang: Lang }) {
-  const posts = getPosts(lang).slice(0, 3)
+  const { posts: all } = getPostsForListing(lang)
+  const posts = all.slice(0, 3)
   const isAr = lang === 'ar'
   const title = isAr ? 'أحدث المقالات' : 'Latest articles'
   const lede = isAr ? 'نصائح ومعرفة طبية موثوقة في طب وجراحة العيون.' : 'Trusted medical insight on eye health and surgical care.'
