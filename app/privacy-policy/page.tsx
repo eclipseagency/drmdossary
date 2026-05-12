@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { getPage } from '@/lib/content'
 import { PageHero } from '@/components/PageHero'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { CTABand } from '@/components/CTABand'
 
 const URL = '/privacy-policy/'
 
@@ -26,7 +25,6 @@ export default function Page() {
           <article className="prose-medical" dangerouslySetInnerHTML={{ __html: p?.body_html || '' }} />
         </div>
       </section>
-      <CTABand lang="ar" />
     </>
   )
 }

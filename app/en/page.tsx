@@ -5,7 +5,7 @@ import { AboutPreview } from '@/components/home/AboutPreview'
 import { WhyUs } from '@/components/home/WhyUs'
 import { Testimonials } from '@/components/home/Testimonials'
 import { BlogPreview } from '@/components/home/BlogPreview'
-import { CTABand } from '@/components/CTABand'
+import { HomeBooking } from '@/components/home/HomeBooking'
 
 export const metadata: Metadata = {
   title: 'Dr Mohammad Al Dossary — Consultant Ophthalmologist | Riyadh',
@@ -23,7 +23,7 @@ export default function HomeEN() {
       <WhyUs lang="en" />
       <Testimonials lang="en" />
       <BlogPreview lang="en" />
-      <CTABand lang="en" />
+      <HomeBooking lang="en" />
     </>
   )
 }

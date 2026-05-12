@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { type PostEntry } from '@/lib/content'
 import { T } from '@/lib/i18n'
 import { Breadcrumbs } from './Breadcrumbs'
-import { CTABand } from './CTABand'
 
 function readingTime(html: string): number {
   const text = html.replace(/<[^>]+>/g, ' ')
@@ -57,8 +56,6 @@ export function BlogPost({ post }: { post: PostEntry }) {
           </div>
         </div>
       </article>
-
-      <CTABand lang={post.lang} />
     </>
   )
 }

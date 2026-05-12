@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import { getPage } from '@/lib/content'
 import { PageHero } from './PageHero'
 import { Breadcrumbs } from './Breadcrumbs'
-import { CTABand } from './CTABand'
 import { type Lang } from '@/lib/content'
 import Link from 'next/link'
 import { T } from '@/lib/i18n'
@@ -49,7 +48,6 @@ export function InnerPage({ url, eyebrow, crumbs, showHeroCtas = true }: InnerPa
           />
         </div>
       </section>
-      <CTABand lang={lang} />
     </>
   )
 }
