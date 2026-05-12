@@ -80,6 +80,19 @@
   .prose-medical strong { @apply font-bold text-ink; }
   .prose-medical hr { @apply my-8 border-surface-edge; }
 
+  /* Variant used inside the about-page bio column where the prose sits
+     beside a portrait. Slightly larger first paragraph and tighter
+     vertical rhythm so the column reads as a single editorial block. */
+  .prose-medical-tight > .prose > p:first-of-type {
+    @apply text-[17px] md:text-[18px] leading-[1.85] text-ink;
+  }
+  .prose-medical-tight > .prose > p {
+    @apply mb-4;
+  }
+  .prose-medical-tight > .prose > p:not(:first-of-type) {
+    @apply text-ink-muted;
+  }
+
   /* Reusable section heading block */
   .eyebrow-pill {
     @apply inline-block px-3 py-1 rounded-full bg-brand-50 text-brand-500 text-xs sm:text-sm font-semibold tracking-wide;
