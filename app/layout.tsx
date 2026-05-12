@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Cairo } from 'next/font/google'
-import { headers } from 'next/headers'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
-import { langFromPath, dirFor } from '@/lib/i18n'
+import { SiteShell } from '@/components/SiteShell'
 import './globals.css'
 
 const inter = Inter({
@@ -40,14 +37,17 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const h = await headers()
-  const pathname = h.get('x-pathname') || '/'
-  const lang = langFromPath(pathname)
-  const dir = dirFor(lang)
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  // The SSR-rendered <html> defaults to Arabic. A small client `DirSync`
+  // inside SiteShell flips lang/dir on /en/* routes after hydration.
+  // `suppressHydrationWarning` silences the intentional mismatch.
   return (
-    <html lang={lang} dir={dir} className={`${inter.variable} ${cairo.variable}`}>
+    <html
+      lang="ar"
+      dir="rtl"
+      suppressHydrationWarning
+      className={`${inter.variable} ${cairo.variable}`}
+    >
       <body>
         <a
           href="#main"
@@ -55,9 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           Skip to content
         </a>
-        <Header lang={lang} pathname={pathname} />
-        <main id="main">{children}</main>
-        <Footer lang={lang} />
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   )
