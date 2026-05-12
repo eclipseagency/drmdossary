@@ -1,84 +1,98 @@
 'use client'
 
-import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { type ReactNode } from 'react'
 import { Reveal } from './Reveal'
 import { TextReveal } from './TextReveal'
 
+/**
+ * Inner-page hero. Matches the home hero's dark-navy aesthetic for
+ * visual consistency across the site:
+ *   * brand-900 background
+ *   * faint chevron + dot textures
+ *   * two soft blurred accent glows
+ *   * centered single-column content (eyebrow + h1 + lede + CTAs)
+ *
+ * No side image — every inner page should look like the others.
+ */
 export function PageHero({
   eyebrow,
   title,
   lede,
-  image,
-  imageAlt = '',
   children,
 }: {
   eyebrow?: string
   title: string
   lede?: string
+  /** ignored — kept for backward compatibility with existing callers */
   image?: string
   imageAlt?: string
   children?: ReactNode
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-brand text-white">
-      {/* Soft floating shapes */}
+    <section className="relative isolate overflow-hidden bg-brand-900 text-white -mt-[80px] md:-mt-[90px] pt-[120px] md:pt-[140px] pb-14 md:pb-20">
+      {/* Chevron texture */}
       <span
         aria-hidden
-        className="absolute -top-32 end-[-100px] h-[360px] w-[360px] rounded-full bg-brand-500/40 blur-3xl animate-float-a respect-motion"
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'><path d='M0 20 L20 0 L40 20' fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.5'/></svg>\")",
+        }}
+      />
+      {/* Dot texture */}
+      <span
+        aria-hidden
+        className="absolute inset-0 opacity-[0.05] pointer-events-none"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+      {/* Floating accent glows */}
+      <span
+        aria-hidden
+        className="absolute -top-32 end-[-140px] h-[420px] w-[420px] rounded-full bg-brand-500/25 blur-3xl animate-float-a respect-motion"
       />
       <span
         aria-hidden
-        className="absolute -bottom-32 start-[-80px] h-[320px] w-[320px] rounded-full bg-brand-400/30 blur-3xl animate-float-b respect-motion"
+        className="absolute -bottom-40 start-[-120px] h-[380px] w-[380px] rounded-full bg-brand-700/40 blur-3xl animate-float-b respect-motion"
       />
-      <span aria-hidden className="absolute inset-0 bg-noise opacity-[0.04] pointer-events-none" />
 
-      <div className="container relative py-16 md:py-24">
-        <div className={image ? 'grid md:grid-cols-[1.1fr_0.9fr] gap-8 md:gap-12 items-center' : ''}>
-          <div>
-            {eyebrow && (
-              <Reveal>
-                <p className="inline-block px-3 py-1 rounded-full bg-white/15 text-white text-xs sm:text-sm font-semibold mb-4 backdrop-blur">
-                  {eyebrow}
-                </p>
-              </Reveal>
-            )}
-            <h1 className="text-3xl md:text-5xl text-white leading-tight">
-              <TextReveal text={title} delay={120} step={55} />
-            </h1>
-            {lede && (
-              <p className="mt-5 text-white/85 text-base md:text-lg max-w-2xl">
-                <TextReveal text={lede} delay={500} step={22} offset={10} />
+      <div className="container relative">
+        <div className="max-w-3xl mx-auto text-center">
+          {eyebrow && (
+            <Reveal>
+              <p className="inline-block px-4 py-1.5 rounded-full bg-white/[0.08] ring-1 ring-white/15 backdrop-blur-sm text-white text-sm font-semibold">
+                {eyebrow}
               </p>
-            )}
-            {children && (
-              <Reveal delay={240}>
-                <div className="mt-7 flex flex-wrap gap-3">{children}</div>
-              </Reveal>
-            )}
-          </div>
-          {image && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.22, 0.65, 0.32, 1], delay: 0.1 }}
-              className="relative"
-            >
-              <div className="relative rounded-3xl overflow-hidden shadow-lift ring-1 ring-white/15">
-                <Image
-                  src={image}
-                  alt={imageAlt}
-                  width={800}
-                  height={600}
-                  className="w-full h-auto object-cover max-h-[400px]"
-                />
-              </div>
-            </motion.div>
+            </Reveal>
+          )}
+          <h1 className="mt-4 text-3xl md:text-5xl text-white leading-tight">
+            <TextReveal text={title} delay={120} step={55} />
+          </h1>
+          {lede && (
+            <p className="mt-5 text-white/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+              <TextReveal text={lede} delay={500} step={22} offset={10} />
+            </p>
+          )}
+          {children && (
+            <Reveal delay={240}>
+              <div className="mt-7 flex flex-wrap justify-center gap-3">{children}</div>
+            </Reveal>
           )}
         </div>
       </div>
+
+      {/* Bottom fade so the hero blends into the next section */}
+      <span
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 h-20 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(2,40,58,0) 0%, rgba(255,255,255,1) 100%)',
+        }}
+      />
     </section>
   )
 }

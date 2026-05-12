@@ -28,7 +28,6 @@ export default function AboutUsEN() {
         eyebrow="About"
         title={page.title}
         lede={page.seo_description}
-        image="/uploads/2024/02/DSC08886-1-removebg-preview.png"
       >
         <Link href="/en/book/" className="btn btn-lg btn-light">
           {t.bookNow}
