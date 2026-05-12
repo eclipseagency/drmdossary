@@ -106,9 +106,12 @@ export function HomeHero({ lang }: { lang: Lang }) {
             </p>
           </Reveal>
 
-          {/* Title — large, bold, gradient-white */}
-          <h1 className="mt-3 text-4xl md:text-6xl lg:text-[4.2rem] leading-[1.08] tracking-tight">
-            <TextReveal text={hero.title} className="grad-text-light" delay={120} step={55} />
+          {/* Title — large, bold, plain white on the dark navy bg.
+              (Previously used grad-text-light but bg-clip:text doesn't
+              render on a span containing many inline-block word spans
+              from TextReveal — left the title invisible.) */}
+          <h1 className="mt-3 text-4xl md:text-6xl lg:text-[4.2rem] leading-[1.08] tracking-tight text-white">
+            <TextReveal text={hero.title} delay={120} step={55} />
           </h1>
 
           {/* Lede */}
