@@ -31,6 +31,11 @@ const nextConfig = {
         destination: '/',
         permanent: true,
       },
+      // Legacy booking slugs from the WordPress site
+      { source: '/signup', destination: '/book', permanent: true },
+      { source: '/signup/', destination: '/book/', permanent: true },
+      { source: '/en/signup', destination: '/en/book', permanent: true },
+      { source: '/en/signup/', destination: '/en/book/', permanent: true },
     ]
   },
   async headers() {

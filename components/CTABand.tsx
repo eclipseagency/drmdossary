@@ -8,8 +8,7 @@ export function CTABand({ lang }: { lang: Lang }) {
     ? 'خطوة واحدة تفصلك عن استشارة طبية متخصصة في طب وجراحة العيون.'
     : 'One step away from a specialised ophthalmology consultation.'
   const primary = isAr ? 'احجز الآن' : 'Book now'
-  const secondary = isAr ? 'تواصل معنا' : 'Contact us'
-  const url = isAr ? '/contact-us/' : '/en/contact-us/'
+  const url = isAr ? '/book/' : '/en/book/'
 
   return (
     <section className="relative overflow-hidden isolate">
@@ -36,9 +35,19 @@ export function CTABand({ lang }: { lang: Lang }) {
             <div className="flex flex-wrap gap-3">
               <Link href={url} className="btn btn-lg btn-light">
                 {primary}
-              </Link>
-              <Link href={url} className="btn btn-lg btn-outline-light">
-                {secondary}
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={isAr ? { transform: 'scaleX(-1)' } : undefined}
+                >
+                  <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
               </Link>
             </div>
           </div>

@@ -17,7 +17,7 @@ export function ServicesIndex({ lang }: { lang: Lang }) {
     ? 'تقدم العيادة مجموعة شاملة من الخدمات المتخصصة في طب وجراحة العيون باستخدام أحدث التقنيات وأكثرها تطورًا.'
     : 'A complete range of specialised ophthalmology services using the latest, most advanced technology.'
   const more = t.learnMore
-  const bookUrl = isAr ? '/contact-us/' : '/en/contact-us/'
+  const bookUrl = isAr ? '/book/' : '/en/book/'
 
   return (
     <>

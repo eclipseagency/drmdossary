@@ -30,7 +30,7 @@ export default function AboutUsEN() {
         lede={page.seo_description}
         image="/uploads/2024/02/DSC08886-1-removebg-preview.png"
       >
-        <Link href="/en/contact-us/" className="btn btn-lg btn-light">
+        <Link href="/en/book/" className="btn btn-lg btn-light">
           {t.bookNow}
         </Link>
       </PageHero>
