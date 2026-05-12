@@ -42,21 +42,33 @@
 </header>
 
 <main id="main">
-<section class="home-hero">
+<section class="home-hero" data-spotlight>
+  <div class="home-hero-bg" aria-hidden="true">
+    <span class="hero-shape hero-shape-1"></span>
+    <span class="hero-shape hero-shape-2"></span>
+    <span class="hero-shape hero-shape-3"></span>
+    <span class="hero-noise"></span>
+    <span class="hero-spot"></span>
+  </div>
   <div class="container home-hero-inner">
     <div class="home-hero-text">
-      <p class="hero-eyebrow">استشاري طب وجراحة العيون</p>
-      <h1 class="home-hero-title">رعاية شاملة لرؤية أوضح وحياة أفضل</h1>
-      <p class="home-hero-lede">خلفية أكاديمية راسخة، البورد السعودي في طب وجراحة العيون، وزمالة إكلينيكية من مستشفى الملك خالد التخصصي للعيون — رعاية متخصصة في القرنية، الماء الأبيض، وجراحات تصحيح النظر.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="/contact-us/">احجز موعدك</a>
+      <p class="hero-eyebrow reveal">استشاري طب وجراحة العيون</p>
+      <h1 class="home-hero-title reveal" data-reveal-delay="80"><span class="grad-text">رعاية شاملة لرؤية أوضح وحياة أفضل</span></h1>
+      <p class="home-hero-lede reveal" data-reveal-delay="160">خلفية أكاديمية راسخة، البورد السعودي في طب وجراحة العيون، وزمالة إكلينيكية من مستشفى الملك خالد التخصصي للعيون — رعاية متخصصة في القرنية، الماء الأبيض، وجراحات تصحيح النظر.</p>
+      <div class="hero-ctas reveal" data-reveal-delay="240">
+        <a class="btn btn-primary btn-lg btn-depth" href="/contact-us/"><span>احجز موعدك</span></a>
         <a class="btn btn-ghost btn-lg" href="/services/">تعرّف على خدماتنا</a>
       </div>
-      <ul class="trust-badges"><li>البورد السعودي في طب وجراحة العيون</li><li>زمالة مستشفى الملك خالد التخصصي للعيون</li><li>أحدث التقنيات والأجهزة العالمية</li><li>رعاية شخصية ومتابعة بعد الجراحة</li></ul>
+      <ul class="trust-badges"><li class="reveal" data-reveal-delay="300">البورد السعودي في طب وجراحة العيون</li><li class="reveal" data-reveal-delay="380">زمالة مستشفى الملك خالد التخصصي للعيون</li><li class="reveal" data-reveal-delay="460">أحدث التقنيات والأجهزة العالمية</li><li class="reveal" data-reveal-delay="540">رعاية شخصية ومتابعة بعد الجراحة</li></ul>
     </div>
-    <div class="home-hero-aside">
-      <div class="doctor-card">
-        <img src="/uploads/2024/02/DSC08886-1-removebg-preview.png" alt="" loading="eager" decoding="async">
+    <div class="home-hero-aside reveal" data-reveal-delay="120">
+      <div class="doctor-card" data-tilt>
+        <span class="doctor-card-glow" aria-hidden="true"></span>
+        <span class="doctor-card-ring" aria-hidden="true"></span>
+        <div class="doctor-card-frame">
+          <img src="/uploads/2024/02/DSC08886-1-removebg-preview.png" alt="" loading="eager" decoding="async">
+        </div>
+        <span class="doctor-card-glare" aria-hidden="true"></span>
       </div>
     </div>
   </div>
