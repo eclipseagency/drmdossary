@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { type Lang } from '@/lib/content'
 import { HERO_AR, HERO_EN, TRUST_BADGES } from '@/lib/i18n'
+import { TiltCard } from '@/components/TiltCard'
 import { Reveal } from '@/components/Reveal'
 import { TextReveal } from '@/components/TextReveal'
 
@@ -109,21 +110,58 @@ export function HomeHero({ lang }: { lang: Lang }) {
             </ul>
           </div>
 
-          {/* Doctor portrait — bare on top of the hero background */}
+          {/* Doctor card — 3D layered stack */}
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 0.65, 0.32, 1] }}
-            className="relative w-full max-w-[460px] mx-auto"
+            className="relative w-full max-w-[380px] mx-auto"
+            style={{ perspective: 1400 }}
           >
-            <Image
-              src={DOCTOR_HEADSHOT}
-              alt=""
-              width={460}
-              height={576}
-              priority
-              className="block w-full h-auto drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
+            {/* Outer glow */}
+            <span
+              aria-hidden
+              className="absolute -inset-y-10 -inset-x-8 rounded-[40px] bg-[radial-gradient(60%_60%_at_50%_60%,rgba(8,131,149,.45),rgba(10,77,104,.15)_50%,transparent_75%)] blur-2xl pointer-events-none"
             />
+            <TiltCard
+              isRTL={lang === 'ar'}
+              className="group relative aspect-[4/5] animate-doctor-float respect-motion"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              {/* Conic ring */}
+              <span
+                aria-hidden
+                className="absolute inset-0 rounded-[30px] bg-gradient-ring animate-ring-spin respect-motion"
+                style={{
+                  WebkitMask:
+                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                  mask:
+                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                  padding: 2,
+                }}
+              />
+              {/* Front frame */}
+              <div className="absolute inset-0 rounded-[30px] overflow-hidden bg-gradient-brand-soft shadow-lift ring-1 ring-white/15 flex items-end justify-center">
+                <span
+                  aria-hidden
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      'radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 60%), radial-gradient(circle at 50% 110%, rgba(255,255,255,.22), transparent 55%)',
+                  }}
+                />
+                <Image
+                  src={DOCTOR_HEADSHOT}
+                  alt=""
+                  width={460}
+                  height={576}
+                  priority
+                  className="relative h-full w-full object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
+                />
+              </div>
+            </TiltCard>
           </motion.div>
         </div>
       </div>
