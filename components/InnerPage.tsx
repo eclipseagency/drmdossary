@@ -14,10 +14,9 @@ type InnerPageProps = {
   crumbs?: Array<{ href?: string; label: string }>
   /** Optional hero CTAs */
   showHeroCtas?: boolean
-  heroImage?: string
 }
 
-export function InnerPage({ url, eyebrow, crumbs, showHeroCtas = true, heroImage }: InnerPageProps) {
+export function InnerPage({ url, eyebrow, crumbs, showHeroCtas = true }: InnerPageProps) {
   const page = getPage(url)
   if (!page) notFound()
   const lang: Lang = page.lang
@@ -32,7 +31,7 @@ export function InnerPage({ url, eyebrow, crumbs, showHeroCtas = true, heroImage
         eyebrow={eyebrow}
         title={page.title}
         lede={page.seo_description}
-        image={heroImage}
+
       >
         {showHeroCtas && (
           <Link href={bookUrl} className="btn btn-lg btn-light">

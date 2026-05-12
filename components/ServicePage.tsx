@@ -8,15 +8,6 @@ import { Breadcrumbs } from './Breadcrumbs'
 import { CTABand } from './CTABand'
 import { Reveal } from './Reveal'
 
-const HERO_IMG: Record<string, string> = {
-  '/corneal-surgeries/': '/uploads/2024/02/Group-12.png',
-  '/treatment-of-cataracts/': '/uploads/2024/02/Group-104.png',
-  '/vision-correction-surgeries/': '/uploads/2024/02/Group-10.png',
-  '/en/corneal-surgeries/': '/uploads/2024/02/Group-12.png',
-  '/en/treatment-of-cataracts/': '/uploads/2024/02/Group-104.png',
-  '/en/vision-correction-surgeries/': '/uploads/2024/02/Group-10.png',
-}
-
 export function ServicePage({ url }: { url: string }) {
   const page = getPage(url)
   if (!page) notFound()
@@ -39,7 +30,7 @@ export function ServicePage({ url }: { url: string }) {
         eyebrow={isAr ? 'خدمة طبية' : 'Service'}
         title={page.title}
         lede={page.seo_description}
-        image={HERO_IMG[url]}
+
       >
         <Link href={bookUrl} className="btn btn-lg btn-light">
           {t.bookNow}
