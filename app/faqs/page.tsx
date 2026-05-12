@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { PageHero } from '@/components/PageHero'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { CTABand } from '@/components/CTABand'
 import { FAQAccordion } from '@/components/FAQAccordion'
 import { FAQ_AR } from '@/lib/i18n'
 import { getPage } from '@/lib/content'
@@ -43,7 +42,6 @@ export default function Page() {
           <FAQAccordion items={FAQ_AR} />
         </div>
       </section>
-      <CTABand lang="ar" />
     </>
   )
 }

@@ -3,7 +3,6 @@ import { type Lang } from '@/lib/content'
 import { SERVICES, T } from '@/lib/i18n'
 import { PageHero } from './PageHero'
 import { Breadcrumbs } from './Breadcrumbs'
-import { CTABand } from './CTABand'
 import { ServiceCard } from './ServiceCard'
 
 export function ServicesIndex({ lang }: { lang: Lang }) {
@@ -35,8 +34,6 @@ export function ServicesIndex({ lang }: { lang: Lang }) {
           </div>
         </div>
       </section>
-
-      <CTABand lang={lang} />
     </>
   )
 }

@@ -5,7 +5,6 @@ import { getPage, type Lang } from '@/lib/content'
 import { SERVICES, T } from '@/lib/i18n'
 import { PageHero } from './PageHero'
 import { Breadcrumbs } from './Breadcrumbs'
-import { CTABand } from './CTABand'
 import { Reveal } from './Reveal'
 
 export function ServicePage({ url }: { url: string }) {
@@ -97,8 +96,6 @@ export function ServicePage({ url }: { url: string }) {
           </div>
         </section>
       )}
-
-      <CTABand lang={lang} />
     </>
   )
 }

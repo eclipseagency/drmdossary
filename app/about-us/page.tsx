@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { getPage } from '@/lib/content'
 import { PageHero } from '@/components/PageHero'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
-import { CTABand } from '@/components/CTABand'
 import { Reveal } from '@/components/Reveal'
 import { TRUST_BADGES, T } from '@/lib/i18n'
 
@@ -139,8 +138,6 @@ export default function AboutUsAR() {
           </ul>
         </div>
       </section>
-
-      <CTABand lang="ar" />
     </>
   )
 }

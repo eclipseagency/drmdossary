@@ -2,7 +2,6 @@ import { type Lang } from '@/lib/content'
 import { getPostsForListing } from '@/lib/content'
 import { PageHero } from './PageHero'
 import { Breadcrumbs } from './Breadcrumbs'
-import { CTABand } from './CTABand'
 import { BlogCard } from './BlogCard'
 
 export function BlogIndex({ lang }: { lang: Lang }) {
@@ -50,8 +49,6 @@ export function BlogIndex({ lang }: { lang: Lang }) {
           </div>
         </div>
       </section>
-
-      <CTABand lang={lang} />
     </>
   )
 }

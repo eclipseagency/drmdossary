@@ -5,7 +5,7 @@ import { AboutPreview } from '@/components/home/AboutPreview'
 import { WhyUs } from '@/components/home/WhyUs'
 import { Testimonials } from '@/components/home/Testimonials'
 import { BlogPreview } from '@/components/home/BlogPreview'
-import { CTABand } from '@/components/CTABand'
+import { HomeBooking } from '@/components/home/HomeBooking'
 
 export const metadata: Metadata = {
   title: 'د. محمد الدوسري — استشاري طب وجراحة العيون | الرياض',
@@ -23,7 +23,7 @@ export default function HomeAR() {
       <WhyUs lang="ar" />
       <Testimonials lang="ar" />
       <BlogPreview lang="ar" />
-      <CTABand lang="ar" />
+      <HomeBooking lang="ar" />
     </>
   )
 }
