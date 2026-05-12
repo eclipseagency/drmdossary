@@ -923,18 +923,37 @@ def render_home(lang: str) -> dict:
   </div>
 </section>"""
 
-    # Testimonials — use the patient image cards
+    # Testimonials — Google review screenshots, presented in a masonry grid
+    # with 3D tilt-on-hover and staggered scroll-reveal. Source images are
+    # landscape JPEGs, so we render each one at its natural aspect ratio
+    # inside a tilt wrapper.
     testi_cards = "".join(
-        f'<figure class="testi-card"><img src="{img}" alt="" loading="lazy"></figure>'
-        for img in TESTIMONIAL_IMAGES
+        f"""<figure class="testi-card reveal" data-tilt data-reveal-delay="{(idx % 6) * 80}">
+  <div class="testi-tilt-inner">
+    <img src="{img}" alt="" loading="lazy" decoding="async">
+    <span class="testi-glare" aria-hidden="true"></span>
+  </div>
+</figure>"""
+        for idx, img in enumerate(TESTIMONIAL_IMAGES)
     )
-    testi = f"""<section class="section section-testimonials">
+    google_badge = (
+        '<svg class="google-mark" viewBox="0 0 18 18" aria-hidden="true">'
+        '<path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84c-.21 1.13-.84 2.08-1.78 2.72v2.26h2.89c1.69-1.56 2.69-3.86 2.69-6.62z"/>'
+        '<path fill="#34A853" d="M9 18c2.43 0 4.47-.81 5.96-2.18l-2.89-2.26c-.81.54-1.83.86-3.07.86-2.36 0-4.36-1.6-5.07-3.74H.96v2.34A8.997 8.997 0 0 0 9 18z"/>'
+        '<path fill="#FBBC05" d="M3.93 10.68c-.18-.54-.28-1.12-.28-1.72s.1-1.18.28-1.72V4.9H.96A8.996 8.996 0 0 0 0 8.96c0 1.45.35 2.82.96 4.06l2.97-2.34z"/>'
+        '<path fill="#EA4335" d="M9 3.58c1.33 0 2.52.46 3.46 1.36l2.6-2.6C13.46.89 11.42 0 9 0 5.48 0 2.44 2.02.96 4.96l2.97 2.34C4.64 5.18 6.64 3.58 9 3.58z"/>'
+        '</svg>'
+    )
+    google_label = "تقييمات Google" if lang == "ar" else "Google reviews"
+    testi = f"""<section class="section section-testimonials" aria-labelledby="testi-heading">
+  <div class="testi-glow" aria-hidden="true"></div>
   <div class="container">
-    <div class="section-head center">
-      <h2 class="section-title">{e(testi_title)}</h2>
+    <div class="section-head center reveal">
+      <p class="google-pill">{google_badge}<span>{e(google_label)}</span></p>
+      <h2 id="testi-heading" class="section-title">{e(testi_title)}</h2>
       <p class="section-lede">{e(testi_lede)}</p>
     </div>
-    <div class="testi-marquee">{testi_cards}</div>
+    <div class="testi-grid">{testi_cards}</div>
   </div>
 </section>"""
 
@@ -1946,18 +1965,109 @@ hr { border: 0; border-top: 1px solid var(--color-border); margin: 2rem 0; }
 .feature-card h3 { font-size: 1.08rem; margin: 0 0 .5rem; }
 .feature-card p { color: var(--color-muted); margin: 0; font-size: .95rem; }
 
-/* ===== Testimonials marquee ===== */
-.section-testimonials { background: var(--color-surface-2); }
-.testi-marquee {
-  display: grid; gap: 1.25rem;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+/* ===== Testimonials =====
+   Source images are Google-review screenshots in landscape ratios (1.46–2.56).
+   We render each at its natural ratio inside a CSS-columns masonry grid, with
+   a 3D tilt-on-hover wrapper, glare overlay, and a soft section glow. */
+.section-testimonials {
+  position: relative;
+  background: linear-gradient(180deg, var(--color-surface-2) 0%, #ffffff 100%);
+  overflow: hidden;
+}
+.testi-glow {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(8, 131, 149, 0.18), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(10, 77, 104, 0.10), transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+.section-testimonials .container { position: relative; z-index: 1; }
+
+.google-pill {
+  display: inline-flex; align-items: center; gap: .5rem;
+  padding: .45rem 1rem; margin: 0 0 1rem;
+  background: #fff; border: 1px solid var(--color-border);
+  border-radius: 999px; box-shadow: var(--shadow-sm);
+  font-size: .88rem; font-weight: 600; color: var(--color-primary-darker);
+}
+.google-mark { width: 18px; height: 18px; }
+
+.testi-grid {
+  column-count: 3; column-gap: 1.5rem;
+  perspective: 1200px;
+}
+.testi-grid > .testi-card {
+  break-inside: avoid; margin: 0 0 1.5rem;
+  display: block;
 }
 .testi-card {
-  margin: 0; background: var(--color-surface);
-  border-radius: var(--radius); overflow: hidden;
-  box-shadow: var(--shadow-sm); aspect-ratio: 4 / 5;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 1px 2px rgba(8,18,30,.04), 0 8px 20px rgba(8,18,30,.06);
+  overflow: hidden;
+  transition: box-shadow .3s ease, transform .25s ease;
+  will-change: transform;
+  transform-style: preserve-3d;
 }
-.testi-card img { width: 100%; height: 100%; object-fit: cover; }
+.testi-card:hover { box-shadow: 0 4px 8px rgba(8,18,30,.06), 0 22px 44px rgba(8,18,30,.14); }
+.testi-tilt-inner {
+  position: relative;
+  transform: translateZ(0);
+}
+.testi-card img {
+  display: block; width: 100%; height: auto;
+  border-radius: var(--radius-lg);
+}
+.testi-glare {
+  position: absolute; inset: 0; pointer-events: none;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255,255,255,.55) 0%,
+    rgba(255,255,255,0) 35%
+  );
+  opacity: 0; transition: opacity .25s ease;
+  mix-blend-mode: screen;
+}
+.testi-card:hover .testi-glare { opacity: 1; }
+
+@media (max-width: 980px) {
+  .testi-grid { column-count: 2; }
+}
+@media (max-width: 620px) {
+  .testi-grid { column-count: 1; column-gap: 1rem; }
+  .testi-grid > .testi-card { margin-bottom: 1rem; }
+}
+
+/* ===== Reveal-on-scroll & 3D tilt utilities =====
+   .reveal: starts hidden + slightly offset, animates in when JS adds .is-in.
+   data-tilt: opted-in element whose JS-driven CSS variables rotate it on
+   pointer move. Both gated by prefers-reduced-motion below. */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0) scale(.985);
+  transition:
+    opacity .55s cubic-bezier(.22,.65,.32,1),
+    transform .55s cubic-bezier(.22,.65,.32,1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+[data-tilt] {
+  transition: transform .25s cubic-bezier(.22,.65,.32,1), box-shadow .25s ease;
+  transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+}
+[data-tilt].is-tilting {
+  transition: transform 60ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  [data-tilt] { transform: none !important; }
+  .testi-glare { display: none; }
+}
 
 /* ===== Blog grid ===== */
 .blog-grid {
@@ -2180,6 +2290,70 @@ JS = r"""(() => {
   // Set the dynamic year in the footer
   const y = new Date().getFullYear();
   document.querySelectorAll('.year').forEach(n => n.textContent = String(y));
+
+  // ---- Reveal-on-scroll ---------------------------------------------------
+  // Elements with the `.reveal` class fade + slide in when they intersect the
+  // viewport. Optional `data-reveal-delay` ms stagger.
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealables = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    revealables.forEach(el => el.classList.add('is-in'));
+  } else {
+    revealables.forEach(el => {
+      const d = parseInt(el.dataset.revealDelay || '0', 10);
+      if (d) el.style.setProperty('--reveal-delay', d + 'ms');
+    });
+    const io = new IntersectionObserver((entries) => {
+      for (const ent of entries) {
+        if (ent.isIntersecting) {
+          ent.target.classList.add('is-in');
+          io.unobserve(ent.target);
+        }
+      }
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealables.forEach(el => io.observe(el));
+  }
+
+  // ---- 3D tilt on hover ---------------------------------------------------
+  // Elements with [data-tilt] get pointer-driven X/Y rotation + a glare
+  // gradient positioned at the cursor. Disabled on coarse pointers and when
+  // prefers-reduced-motion is set.
+  const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (fine && !reduced) {
+    const MAX_TILT = 8; // degrees, per the brief
+    const isRTL = document.documentElement.dir === 'rtl';
+    const tiltables = document.querySelectorAll('[data-tilt]');
+    for (const el of tiltables) {
+      let raf = 0;
+      const handleMove = (ev) => {
+        const rect = el.getBoundingClientRect();
+        const px = (ev.clientX - rect.left) / rect.width;   // 0..1
+        const py = (ev.clientY - rect.top) / rect.height;
+        // RotateX: top → tilt back, bottom → tilt forward.
+        // RotateY: in LTR, mouse right → tilt right side toward viewer; flip in RTL.
+        const rx = (0.5 - py) * 2 * MAX_TILT;
+        const ryDir = isRTL ? -1 : 1;
+        const ry = (px - 0.5) * 2 * MAX_TILT * ryDir;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          el.style.setProperty('--tilt-x', rx.toFixed(2) + 'deg');
+          el.style.setProperty('--tilt-y', ry.toFixed(2) + 'deg');
+          el.style.setProperty('--glare-x', (px * 100).toFixed(1) + '%');
+          el.style.setProperty('--glare-y', (py * 100).toFixed(1) + '%');
+        });
+      };
+      const handleEnter = () => el.classList.add('is-tilting');
+      const handleLeave = () => {
+        el.classList.remove('is-tilting');
+        if (raf) cancelAnimationFrame(raf);
+        el.style.setProperty('--tilt-x', '0deg');
+        el.style.setProperty('--tilt-y', '0deg');
+      };
+      el.addEventListener('pointermove', handleMove, { passive: true });
+      el.addEventListener('pointerenter', handleEnter, { passive: true });
+      el.addEventListener('pointerleave', handleLeave, { passive: true });
+    }
+  }
 })();
 """
 write_file("assets/site.js", JS)
