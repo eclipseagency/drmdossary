@@ -44,7 +44,7 @@ export function ServiceCard({
       className="
         group relative isolate flex h-full min-h-[420px] flex-col overflow-hidden
         rounded-3xl border border-surface-edge bg-white p-7 sm:p-8 shadow-soft
-        transition-all duration-[900ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
+        transition-all duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
         hover:-translate-y-1 hover:shadow-lift
       "
     >
@@ -52,7 +52,7 @@ export function ServiceCard({
           thin sliver of itself visible at the very bottom of the card.
           Rises to fill the card on hover. */}
       <span className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-3xl" aria-hidden>
-        <span className="block absolute inset-0 translate-y-[85%] transition-transform duration-[900ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 motion-reduce:translate-y-0 motion-reduce:opacity-0 motion-reduce:group-hover:opacity-100 motion-reduce:transition-opacity">
+        <span className="block absolute inset-0 translate-y-full transition-transform duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 motion-reduce:translate-y-0 motion-reduce:opacity-0 motion-reduce:group-hover:opacity-100 motion-reduce:transition-opacity">
           <Image
             src={service.image}
             alt=""
@@ -70,7 +70,7 @@ export function ServiceCard({
         className="
           pointer-events-none absolute inset-0 z-[1] rounded-3xl
           bg-brand-900/60 opacity-0
-          transition-opacity duration-[900ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
+          transition-opacity duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
           group-hover:opacity-100
         "
       />
@@ -79,7 +79,7 @@ export function ServiceCard({
       <div
         className="
           relative z-[2] flex h-full flex-col gap-4
-          transition-colors duration-[900ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
+          transition-colors duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
         "
       >
         {/* Icon — stays in the same color disc, only the surrounding text changes */}
@@ -87,7 +87,7 @@ export function ServiceCard({
           className="
             flex h-14 w-14 items-center justify-center rounded-2xl
             bg-brand-500 shadow-glow
-            transition-colors duration-[900ms]
+            transition-colors duration-[1500ms]
             group-hover:bg-brand-400
           "
         >
@@ -99,7 +99,7 @@ export function ServiceCard({
           className="
             text-xl md:text-2xl leading-snug m-0
             text-brand-900 group-hover:text-white
-            transition-colors duration-[900ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
+            transition-colors duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
           "
         >
           {service.name}
@@ -111,7 +111,7 @@ export function ServiceCard({
           className="
             h-px w-12 rounded-full
             bg-surface-edge group-hover:bg-white/40
-            transition-colors duration-[900ms]
+            transition-colors duration-[1500ms]
           "
         />
 
@@ -120,7 +120,7 @@ export function ServiceCard({
           className="
             m-0 text-[15px] leading-relaxed flex-grow
             text-ink-muted group-hover:text-white/85
-            transition-colors duration-[900ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
+            transition-colors duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
           "
         >
           {service.desc}
@@ -133,7 +133,7 @@ export function ServiceCard({
             rounded-full border px-4 py-2 text-sm font-semibold
             border-brand-500/40 text-brand-600 bg-white/0
             group-hover:bg-white group-hover:text-brand-900 group-hover:border-white
-            transition-colors duration-[900ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
+            transition-colors duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
           "
         >
           <span>{more}</span>
