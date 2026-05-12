@@ -36,6 +36,11 @@ const nextConfig = {
       { source: '/signup/', destination: '/book/', permanent: true },
       { source: '/en/signup', destination: '/en/book', permanent: true },
       { source: '/en/signup/', destination: '/en/book/', permanent: true },
+      // Old contact page consolidated into /book/
+      { source: '/contact-us', destination: '/book', permanent: true },
+      { source: '/contact-us/', destination: '/book/', permanent: true },
+      { source: '/en/contact-us', destination: '/en/book', permanent: true },
+      { source: '/en/contact-us/', destination: '/en/book/', permanent: true },
     ]
   },
   async headers() {

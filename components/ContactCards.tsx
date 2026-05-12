@@ -1,11 +1,10 @@
+'use client'
+
 import { type Lang } from '@/lib/content'
 import { CONTACT } from '@/lib/i18n'
-import { PageHero } from './PageHero'
-import { Breadcrumbs } from './Breadcrumbs'
-import { CTABand } from './CTABand'
 import { Reveal } from './Reveal'
 
-const ContactIcons = {
+const Icons = {
   pin: (
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0Z" />
@@ -31,21 +30,16 @@ const ContactIcons = {
   ),
 }
 
-export function ContactPage({ lang, title }: { lang: Lang; title: string }) {
+export function ContactCards({ lang }: { lang: Lang }) {
   const c = CONTACT[lang]
-  const isAr = lang === 'ar'
-  const lede = isAr
-    ? 'تواصل مع فريقنا للحصول على المعلومات أو لحجز موعد. سعداء بخدمتكم.'
-    : 'Get in touch with our team for information or to book a consultation.'
-
   const cards = [
     {
-      icon: ContactIcons.pin,
+      icon: Icons.pin,
       label: c.addressLabel,
       value: <span className="text-ink">{c.address}</span>,
     },
     {
-      icon: ContactIcons.phone,
+      icon: Icons.phone,
       label: c.phoneLabel,
       value: (
         <a href={`tel:${c.phoneTel}`} className="text-brand-900 font-bold hover:text-brand-500 transition-colors">
@@ -54,7 +48,7 @@ export function ContactPage({ lang, title }: { lang: Lang; title: string }) {
       ),
     },
     {
-      icon: ContactIcons.mail,
+      icon: Icons.mail,
       label: c.emailLabel,
       value: (
         <a href={`mailto:${c.email}`} className="text-brand-900 font-bold hover:text-brand-500 transition-colors break-all">
@@ -63,41 +57,25 @@ export function ContactPage({ lang, title }: { lang: Lang; title: string }) {
       ),
     },
     {
-      icon: ContactIcons.clock,
+      icon: Icons.clock,
       label: c.hoursLabel,
       value: <span className="text-ink">{c.hours}</span>,
     },
   ]
 
   return (
-    <>
-      <PageHero
-        eyebrow={isAr ? 'تواصل' : 'Get in touch'}
-        title={title}
-        lede={lede}
-        image="/uploads/2024/10/DALL·E-2024-10-10-17.28.24-A-professional-hospital-contact-section.-The-background-displays-a-sleek-modern-hospital-lobby-with-a-reception-desk-clear-signage-and-a-calm-atmos.jpg"
-      />
-      <Breadcrumbs lang={lang} items={[{ label: title }]} />
-
-      <section className="py-16 md:py-20 bg-white">
-        <div className="container">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto">
-            {cards.map((card, i) => (
-              <Reveal key={card.label} delay={i * 100}>
-                <div className="h-full p-6 rounded-2xl bg-surface-soft border border-surface-edge text-center hover:shadow-lift hover:-translate-y-1 transition-all duration-300">
-                  <span className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand-soft text-white shadow-glow">
-                    {card.icon}
-                  </span>
-                  <h3 className="text-base font-bold text-brand-900 mb-1.5">{card.label}</h3>
-                  <p className="m-0 text-[15px]">{card.value}</p>
-                </div>
-              </Reveal>
-            ))}
+    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {cards.map((card, i) => (
+        <Reveal key={card.label} delay={i * 100}>
+          <div className="h-full p-6 rounded-2xl bg-white border border-surface-edge text-center hover:shadow-lift hover:-translate-y-1 hover:border-brand-400/40 transition-all duration-300">
+            <span className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-brand-soft text-white shadow-glow">
+              {card.icon}
+            </span>
+            <h3 className="text-base font-bold text-brand-900 mb-1.5">{card.label}</h3>
+            <p className="m-0 text-[15px]">{card.value}</p>
           </div>
-        </div>
-      </section>
-
-      <CTABand lang={lang} />
-    </>
+        </Reveal>
+      ))}
+    </div>
   )
 }
