@@ -30,7 +30,16 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-html, body { margin: 0; padding: 0; }
+html, body {
+  margin: 0; padding: 0;
+  /* Belt-and-suspenders: even though every decorated section has
+     overflow: hidden, 3D transforms and rotated plates can still leak
+     a few pixels past the section box in some browsers. Clip at the
+     document level — `clip` is preferred over `hidden` so it doesn't
+     break position: sticky (used by the navbar). */
+  overflow-x: clip;
+  max-width: 100%;
+}
 body {
   background: var(--color-bg);
   color: var(--color-text);
