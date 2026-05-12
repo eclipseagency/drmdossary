@@ -8,6 +8,7 @@ import { type Lang } from '@/lib/content'
 import { HERO_AR, HERO_EN, TRUST_BADGES } from '@/lib/i18n'
 import { TiltCard } from '@/components/TiltCard'
 import { Reveal } from '@/components/Reveal'
+import { TextReveal } from '@/components/TextReveal'
 
 const DOCTOR_HEADSHOT = '/uploads/2024/02/DSC08886-1-removebg-preview.png'
 
@@ -79,16 +80,12 @@ export function HomeHero({ lang }: { lang: Lang }) {
                 {hero.eyebrow}
               </p>
             </Reveal>
-            <Reveal delay={80}>
-              <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
-                <span className="grad-text">{hero.title}</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-6 text-ink-muted text-base md:text-lg max-w-[56ch] leading-relaxed">
-                {hero.lede}
-              </p>
-            </Reveal>
+            <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
+              <TextReveal text={hero.title} className="grad-text" delay={120} step={55} />
+            </h1>
+            <p className="mt-6 text-ink-muted text-base md:text-lg max-w-[56ch] leading-relaxed">
+              <TextReveal text={hero.lede} delay={500} step={28} offset={10} />
+            </p>
             <Reveal delay={240}>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link href={hero.primaryCta.href} className="btn btn-lg btn-primary">

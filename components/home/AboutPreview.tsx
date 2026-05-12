@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { type Lang } from '@/lib/content'
 import { Reveal } from '@/components/Reveal'
+import { TextReveal } from '@/components/TextReveal'
 import { TiltCard } from '@/components/TiltCard'
 
 const ABOUT_IMG = '/uploads/2024/02/Group-10.png'
@@ -61,12 +62,12 @@ export function AboutPreview({ lang }: { lang: Lang }) {
             <Reveal>
               <span className="eyebrow-pill mb-3">{eyebrow}</span>
             </Reveal>
-            <Reveal delay={80}>
-              <h2 className="text-3xl md:text-4xl text-brand-900 mb-5 leading-tight">{title}</h2>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="text-ink-muted text-lg leading-relaxed m-0 mb-7">{lede}</p>
-            </Reveal>
+            <h2 className="text-3xl md:text-4xl text-brand-900 mb-5 leading-tight">
+              <TextReveal text={title} step={50} />
+            </h2>
+            <p className="text-ink-muted text-lg leading-relaxed m-0 mb-7">
+              <TextReveal text={lede} delay={250} step={22} offset={10} />
+            </p>
             <Reveal delay={240}>
               <Link href={ctaHref} className="btn btn-ghost">
                 {ctaLabel}

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { type Lang } from '@/lib/content'
 import { SERVICES } from '@/lib/i18n'
 import { Reveal } from '@/components/Reveal'
+import { TextReveal } from '@/components/TextReveal'
 import { TiltCard } from '@/components/TiltCard'
 
 const FEATURE_BG = '/uploads/2024/03/bg.jpg'
@@ -23,13 +24,17 @@ export function ServicesBento({ lang }: { lang: Lang }) {
   return (
     <section className="relative py-16 md:py-24 bg-surface-soft">
       <div className="container">
-        <Reveal>
-          <div className="max-w-2xl mb-10 md:mb-12">
+        <div className="max-w-2xl mb-10 md:mb-12">
+          <Reveal>
             <span className="eyebrow-pill mb-4">{eyebrow}</span>
-            <h2 className="text-3xl md:text-4xl text-brand-900 mb-3">{title}</h2>
-            <p className="text-ink-muted text-lg m-0">{lede}</p>
-          </div>
-        </Reveal>
+          </Reveal>
+          <h2 className="text-3xl md:text-4xl text-brand-900 mb-3">
+            <TextReveal text={title} step={50} />
+          </h2>
+          <p className="text-ink-muted text-lg m-0">
+            <TextReveal text={lede} delay={200} step={22} offset={10} />
+          </p>
+        </div>
 
         <div
           className="grid gap-4 md:gap-5 lg:grid-cols-[1.25fr_1fr] lg:grid-rows-2 lg:min-h-[580px]"
