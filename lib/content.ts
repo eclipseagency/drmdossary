@@ -49,6 +49,23 @@ export function getPosts(lang: Lang): PostEntry[] {
   return getContent().posts.filter((p) => p.lang === lang)
 }
 
+/**
+ * Posts to display in a blog listing for the given lang. If the lang
+ * has no content of its own (English currently has zero posts — the
+ * original WordPress blog was Arabic-only), fall back to the other
+ * language's posts so the listing is never empty. Callers can detect
+ * the fallback via getPostsFallback().
+ */
+export function getPostsForListing(lang: Lang): {
+  posts: PostEntry[]
+  fallbackLang: Lang | null
+} {
+  const own = getPosts(lang)
+  if (own.length > 0) return { posts: own, fallbackLang: null }
+  const other: Lang = lang === 'ar' ? 'en' : 'ar'
+  return { posts: getPosts(other), fallbackLang: other }
+}
+
 export function getPostBySlug(lang: Lang, slug: string): PostEntry | undefined {
   return getContent().posts.find(
     (p) => p.lang === lang && (p.slug === slug || p.url.endsWith(`/${slug}/`)),
