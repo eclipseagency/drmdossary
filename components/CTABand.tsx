@@ -29,7 +29,7 @@ export function CTABand({ lang }: { lang: Lang }) {
           <div className="grid md:grid-cols-[1.2fr_auto] gap-6 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl text-white mb-3 leading-tight">
-                <TextReveal text={title} className="grad-text-light" step={50} />
+                <TextReveal text={title} step={50} />
               </h2>
               <p className="text-white/85 m-0 text-lg max-w-xl">
                 <TextReveal text={sub} delay={250} step={22} offset={10} />
