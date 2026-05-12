@@ -31,7 +31,7 @@
   // Elements with the `.reveal` class fade + slide in when they intersect the
   // viewport. Optional `data-reveal-delay` ms stagger.
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealables = document.querySelectorAll('.reveal');
+  const revealables = document.querySelectorAll('.reveal, .reveal-pop');
   if (reduced || !('IntersectionObserver' in window)) {
     revealables.forEach(el => el.classList.add('is-in'));
   } else {

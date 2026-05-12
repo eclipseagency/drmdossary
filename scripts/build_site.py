@@ -883,17 +883,28 @@ def render_home(lang: str) -> dict:
   </div>
 </section>"""
 
-    # About section
+    # About section — side-by-side with a layered 3D photo frame.
     about = f"""<section class="section section-about">
-  <div class="container two-col">
-    <div class="about-media">
-      <img src="/uploads/2024/02/Group-10.png" alt="" loading="lazy">
+  <span class="about-bg" aria-hidden="true"></span>
+  <div class="container about-grid">
+    <div class="about-media reveal" data-reveal-delay="80">
+      <div class="about-frame" data-tilt>
+        <span class="about-frame-glow" aria-hidden="true"></span>
+        <span class="about-frame-back" aria-hidden="true"></span>
+        <span class="about-frame-mid"  aria-hidden="true"></span>
+        <div class="about-frame-front">
+          <img src="/uploads/2024/02/Group-10.png" alt="" loading="lazy" decoding="async">
+        </div>
+        <span class="about-frame-glare" aria-hidden="true"></span>
+      </div>
     </div>
     <div class="about-copy">
-      <p class="eyebrow">{e(about_eyebrow)}</p>
-      <h2 class="section-title">{e(about_title)}</h2>
-      <p class="lede">{e(about_lede)}</p>
-      <a class="btn btn-ghost" href="{about_cta[0]}">{e(about_cta[1])}</a>
+      <p class="eyebrow reveal">{e(about_eyebrow)}</p>
+      <h2 class="section-title reveal" data-reveal-delay="80">{e(about_title)}</h2>
+      <p class="lede reveal" data-reveal-delay="160">{e(about_lede)}</p>
+      <div class="reveal" data-reveal-delay="240">
+        <a class="btn btn-ghost" href="{about_cta[0]}">{e(about_cta[1])}</a>
+      </div>
     </div>
   </div>
 </section>"""
@@ -1190,15 +1201,30 @@ def render_about_page(pid: int) -> dict | None:
                 h = f'<h2>{e(s["heading"])}</h2>'
             article_blocks.append(f'<section class="content-block">{h}<div class="prose">{s["body_html"]}</div></section>')
 
-    # Credentials list
+    # Credentials — animated "pop-in" badges that reveal on scroll.
     cred_title = "المؤهلات والخبرة" if lang == "ar" else "Credentials & experience"
-    cred = "".join(f'<li>{e(t)}</li>' for t in trust)
+    badge_check_svg = (
+        '<svg class="cred-tick" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">'
+        '<path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" '
+        'stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    )
+    badge_items = "".join(
+        f"""<li class="cred-badge reveal-pop" data-reveal-delay="{i*100}">
+  <span class="cred-badge-icon" aria-hidden="true">
+    <span class="cred-badge-halo"></span>
+    {badge_check_svg}
+  </span>
+  <span class="cred-badge-text">{e(t)}</span>
+</li>"""
+        for i, t in enumerate(trust)
+    )
     credentials_block = f"""<section class="section section-credentials">
+  <span class="creds-bg" aria-hidden="true"></span>
   <div class="container">
-    <div class="section-head center">
+    <div class="section-head center reveal">
       <h2 class="section-title">{e(cred_title)}</h2>
     </div>
-    <ul class="credentials">{cred}</ul>
+    <ul class="cred-badges">{badge_items}</ul>
   </div>
 </section>"""
 
@@ -2118,12 +2144,102 @@ hr { border: 0; border-top: 1px solid var(--color-border); margin: 2rem 0; }
   margin: 0 0 .9rem;
 }
 
-/* ===== Two-column ===== */
+/* ===== Two-column (generic, kept for other pages) ===== */
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 3.5rem); align-items: center; }
 .two-col img { border-radius: var(--radius-lg); box-shadow: var(--shadow); }
 .lede { font-size: 1.1rem; color: var(--color-muted); }
 @media (max-width: 800px) {
   .two-col { grid-template-columns: 1fr; }
+}
+
+/* ===== About section (homepage, section 4 of redesign) =====
+   Side-by-side: copy on one side, layered 3D photo frame on the other.
+   Three stacked plates (back / mid / front) create the depth illusion
+   without WebGL. The front plate carries the portrait illustration; back
+   and mid plates are tinted gradient cards offset diagonally. */
+.section-about {
+  position: relative; overflow: hidden; isolation: isolate;
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-surface-2) 100%);
+}
+.about-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(45% 50% at 0% 30%, rgba(8,131,149,.10), transparent 60%),
+    radial-gradient(45% 50% at 100% 70%, rgba(10,77,104,.08), transparent 60%);
+}
+.about-grid {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1.05fr;
+  gap: clamp(2rem, 5vw, 4rem); align-items: center;
+}
+.lang-ar .about-grid { grid-template-columns: 1fr 1.05fr; }
+.about-media { perspective: 1400px; display: flex; justify-content: center; }
+.about-frame {
+  position: relative;
+  width: 100%; max-width: 480px;
+  aspect-ratio: 1 / 1;
+  transform-style: preserve-3d;
+}
+.about-frame-glow {
+  position: absolute; inset: -10% -8% -10% -8%; z-index: 0; border-radius: 36px;
+  background: radial-gradient(60% 60% at 50% 50%, rgba(8,131,149,.30), rgba(8,131,149,0) 70%);
+  filter: blur(28px); opacity: .85;
+}
+.about-frame-back, .about-frame-mid {
+  position: absolute; border-radius: 26px; z-index: 1;
+  box-shadow: 0 16px 36px rgba(8,18,30,.12);
+}
+.about-frame-back {
+  inset: 8% -6% -6% 8%;
+  background: linear-gradient(135deg, rgba(93,212,212,.55) 0%, rgba(8,131,149,.55) 100%);
+  transform: translateZ(-30px) rotate(-3deg);
+}
+.lang-ar .about-frame-back { inset: 8% 8% -6% -6%; transform: translateZ(-30px) rotate(3deg); }
+.about-frame-mid {
+  inset: 4% 4% -4% -4%;
+  background: linear-gradient(135deg, rgba(10,77,104,.20) 0%, rgba(10,77,104,.50) 100%);
+  transform: translateZ(-15px) rotate(2deg);
+}
+.lang-ar .about-frame-mid { inset: 4% -4% -4% 4%; transform: translateZ(-15px) rotate(-2deg); }
+.about-frame-front {
+  position: relative; z-index: 2;
+  width: 100%; height: 100%; border-radius: 26px;
+  background:
+    radial-gradient(circle at 30% 0%, rgba(255,255,255,.5), rgba(255,255,255,0) 60%),
+    linear-gradient(135deg, #eef9fb 0%, #ffffff 60%);
+  box-shadow:
+    0 30px 60px rgba(8,18,30,.18),
+    0 8px 20px rgba(8,131,149,.18),
+    0 0 0 1px rgba(8,131,149,.12) inset;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  transform: translateZ(20px);
+}
+.about-frame-front img {
+  width: 92%; height: 92%; object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(8,18,30,.12));
+}
+.about-frame-glare {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  border-radius: 26px;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 30%),
+    rgba(255,255,255,.25) 0%,
+    rgba(255,255,255,0) 40%
+  );
+  opacity: 0; transition: opacity .25s ease;
+  mix-blend-mode: screen;
+}
+.about-frame:hover .about-frame-glare { opacity: 1; }
+.about-copy h2 { margin: .6rem 0 .85rem; }
+.about-copy .lede { margin: 0 0 1.5rem; color: var(--color-muted); font-size: 1.08rem; line-height: 1.75; }
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-media { order: -1; }
+  .about-frame { max-width: 360px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-frame-back, .about-frame-mid { transform: none !important; }
 }
 
 /* ===== Service grid (used on /services and related-services rows) ===== */
@@ -2511,6 +2627,8 @@ hr { border: 0; border-top: 1px solid var(--color-border); margin: 2rem 0; }
 .content-block:not(:first-child) { padding-top: 1.5rem; border-top: 1px solid var(--color-border); }
 
 /* ===== Credentials list ===== */
+/* Legacy .credentials kept in case any older page renders it; new
+   pages use .cred-badges below. */
 .credentials {
   display: grid; gap: .75rem 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -2527,6 +2645,83 @@ hr { border: 0; border-top: 1px solid var(--color-border); margin: 2rem 0; }
   width: 1.6rem; height: 1.6rem; border-radius: 50%;
   background: var(--color-accent-soft); color: var(--color-primary);
   display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+
+/* ===== Credentials badges (section 4 of redesign) =====
+   New animated "pop-in" badges for the about-us page. Each badge has a
+   layered icon halo, accent border, hover lift, and uses the
+   .reveal-pop entrance variant (declared in the global reveal block). */
+.section-credentials {
+  position: relative; overflow: hidden; isolation: isolate;
+  background: linear-gradient(180deg, #ffffff 0%, var(--color-surface-2) 100%);
+}
+.creds-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(40% 50% at 100% 0%, rgba(8,131,149,.12), transparent 60%),
+    radial-gradient(40% 50% at 0% 100%, rgba(10,77,104,.10), transparent 60%);
+}
+.section-credentials .container { position: relative; z-index: 1; }
+
+.cred-badges {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 1.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+.cred-badge {
+  position: relative; display: flex; align-items: center; gap: 1rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(8,18,30,.04);
+  transition: transform .25s cubic-bezier(.22,.65,.32,1), box-shadow .25s ease, border-color .25s ease;
+}
+.cred-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(8,18,30,.10);
+  border-color: var(--color-accent-light);
+}
+.cred-badge-icon {
+  position: relative; flex: 0 0 auto;
+  width: 44px; height: 44px; border-radius: 14px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(8,131,149,.30), 0 0 0 1px rgba(255,255,255,.20) inset;
+}
+.cred-badge-halo {
+  position: absolute; inset: -8px; z-index: -1; border-radius: 22px;
+  background: radial-gradient(circle, rgba(93,212,212,.50), rgba(93,212,212,0) 65%);
+  filter: blur(10px); opacity: 0;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.cred-badge:hover .cred-badge-halo { opacity: 1; transform: scale(1.1); }
+.cred-tick { display: block; }
+.cred-badge-text {
+  font-weight: 600; color: var(--color-primary-darker);
+  line-height: 1.45; font-size: 1rem;
+}
+
+/* "Pop" reveal variant — starts smaller and bounces up to scale 1. Used
+   for credential badges and any element that should feel like it lands. */
+.reveal-pop {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0) scale(.86);
+  transition:
+    opacity .5s cubic-bezier(.22,.65,.32,1),
+    transform .55s cubic-bezier(.34, 1.56, .64, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal-pop.is-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal-pop { opacity: 1; transform: none; transition: none; }
+  .cred-badge { transition: none; transform: none !important; }
+  .cred-badge-halo { display: none; }
 }
 
 /* ===== Contact ===== */
@@ -2664,7 +2859,7 @@ JS = r"""(() => {
   // Elements with the `.reveal` class fade + slide in when they intersect the
   // viewport. Optional `data-reveal-delay` ms stagger.
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealables = document.querySelectorAll('.reveal');
+  const revealables = document.querySelectorAll('.reveal, .reveal-pop');
   if (reduced || !('IntersectionObserver' in window)) {
     revealables.forEach(el => el.classList.add('is-in'));
   } else {
