@@ -1,21 +1,19 @@
 'use client'
 
 import Link from 'next/link'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { type Lang } from '@/lib/content'
-import { HERO_AR, HERO_EN, TRUST_BADGES } from '@/lib/i18n'
+import { HERO_AR, HERO_EN } from '@/lib/i18n'
 import { Reveal } from '@/components/Reveal'
 import { TextReveal } from '@/components/TextReveal'
 
 export function HomeHero({ lang }: { lang: Lang }) {
   const hero = lang === 'ar' ? HERO_AR : HERO_EN
-  const badges = TRUST_BADGES[lang]
   const reduced = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
 
   const isAr = lang === 'ar'
-  const microPill = isAr ? 'استشاري ذو خبرة' : 'Trusted Specialist'
 
   useEffect(() => {
     if (reduced || !ref.current) return
@@ -38,7 +36,7 @@ export function HomeHero({ lang }: { lang: Lang }) {
   return (
     <section
       ref={ref}
-      className="relative isolate overflow-hidden bg-brand-900 text-white -mt-[80px] md:-mt-[90px] pt-[140px] md:pt-[160px] pb-20 md:pb-28"
+      className="relative isolate overflow-hidden bg-brand-900 text-white pt-16 md:pt-24 pb-20 md:pb-28"
       style={{
         ['--spot-x' as string]: '50%',
         ['--spot-y' as string]: '40%',
@@ -84,33 +82,11 @@ export function HomeHero({ lang }: { lang: Lang }) {
 
       <div className="container relative">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Top trust pill */}
-          <Reveal>
-            <p className="inline-flex items-center gap-2.5 ps-2 pe-4 py-2 rounded-full bg-white/[0.08] ring-1 ring-white/15 backdrop-blur-sm text-white text-sm font-semibold">
-              <span
-                aria-hidden
-                className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-500 shadow-glow"
-              >
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 6 9 17l-5-5" />
-                </svg>
-              </span>
-              <span>{microPill}</span>
-            </p>
-          </Reveal>
-
-          {/* Eyebrow */}
-          <Reveal delay={60}>
-            <p className="mt-6 text-brand-400 font-semibold text-sm tracking-wider uppercase">
-              {hero.eyebrow}
-            </p>
-          </Reveal>
-
           {/* Title — large, bold, plain white on the dark navy bg.
               (Previously used grad-text-light but bg-clip:text doesn't
               render on a span containing many inline-block word spans
               from TextReveal — left the title invisible.) */}
-          <h1 className="mt-3 text-4xl md:text-6xl lg:text-[4.2rem] leading-[1.08] tracking-tight text-white">
+          <h1 className="text-4xl md:text-6xl lg:text-[4.2rem] leading-[1.08] tracking-tight text-white">
             <TextReveal text={hero.title} delay={120} step={55} />
           </h1>
 
@@ -141,20 +117,6 @@ export function HomeHero({ lang }: { lang: Lang }) {
               </Link>
             </div>
           </Reveal>
-
-          {/* Trust-badge chips */}
-          <ul className="mt-10 flex flex-wrap justify-center gap-2.5 list-none p-0">
-            {badges.map((b, i) => (
-              <Reveal as="li" key={b} delay={320 + i * 80}>
-                <span className="inline-flex items-center gap-2 rounded-full bg-white/[0.05] ring-1 ring-white/10 text-white/85 text-[13.5px] font-semibold px-3.5 py-2">
-                  <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="#5DD4D4" strokeWidth="2.5" aria-hidden>
-                    <path d="M3.5 8.5l3 3 6-6" />
-                  </svg>
-                  <span>{b}</span>
-                </span>
-              </Reveal>
-            ))}
-          </ul>
         </div>
       </div>
 

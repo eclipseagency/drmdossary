@@ -29,7 +29,7 @@ export function PageHero({
   children?: ReactNode
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-brand-900 text-white -mt-[80px] md:-mt-[90px] pt-[120px] md:pt-[140px] pb-14 md:pb-20">
+    <section className="relative isolate overflow-hidden bg-brand-900 text-white pt-14 md:pt-20 pb-14 md:pb-20">
       {/* Chevron texture */}
       <span
         aria-hidden

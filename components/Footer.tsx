@@ -18,21 +18,6 @@ export function Footer({ lang }: { lang: Lang }) {
 
   return (
     <footer className="relative bg-brand-900 text-white/85 overflow-hidden">
-      {/* Curved divider */}
-      <div className="absolute inset-x-0 top-0 -translate-y-px pointer-events-none">
-        <svg
-          viewBox="0 0 1440 80"
-          preserveAspectRatio="none"
-          className="block w-full h-[60px] sm:h-[80px]"
-          aria-hidden="true"
-        >
-          <path
-            d="M0 80 C 240 20, 480 20, 720 40 C 960 60, 1200 60, 1440 20 L 1440 0 L 0 0 Z"
-            fill="rgb(247 249 251)"
-          />
-        </svg>
-      </div>
-
       {/* Subtle dot pattern */}
       <div
         aria-hidden
@@ -44,7 +29,7 @@ export function Footer({ lang }: { lang: Lang }) {
         }}
       />
 
-      <div className="container relative pt-24 pb-10">
+      <div className="container relative pt-14 md:pt-16 pb-10">
         <div className="grid gap-10 md:gap-12 md:grid-cols-[1.4fr_1fr_1.2fr]">
           <div>
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 p-2">
