@@ -28,21 +28,13 @@ export function AboutPreview({ lang }: { lang: Lang }) {
         <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
           <Reveal delay={80}>
             <div className="relative mx-auto w-full max-w-[440px]">
-              <div
-                className="relative aspect-square rounded-[26px] overflow-hidden shadow-lift ring-1 ring-brand-500/12 flex items-center justify-center"
-                style={{
-                  background:
-                    'radial-gradient(circle at 30% 0%, rgba(255,255,255,.5), rgba(255,255,255,0) 60%), linear-gradient(135deg, #eef9fb 0%, #ffffff 60%)',
-                }}
-              >
-                <Image
-                  src={ABOUT_IMG}
-                  alt=""
-                  width={460}
-                  height={460}
-                  className="w-[92%] h-[92%] object-contain"
-                />
-              </div>
+              <Image
+                src={ABOUT_IMG}
+                alt=""
+                width={460}
+                height={460}
+                className="block w-full h-auto"
+              />
             </div>
           </Reveal>
 
