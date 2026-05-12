@@ -158,13 +158,14 @@ export function HomeHero({ lang }: { lang: Lang }) {
         </div>
       </div>
 
-      {/* Soft fade so the hero blends into the page below */}
+      {/* Soft fade so the hero blends into the page below. Short and
+          subtle — heavy "shadow" was too aggressive. */}
       <span
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+        className="absolute inset-x-0 bottom-0 h-8 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(2,40,58,0) 0%, rgba(247,249,251,1) 100%)',
+            'linear-gradient(180deg, rgba(2,40,58,0) 0%, rgba(247,249,251,0.4) 100%)',
         }}
       />
     </section>

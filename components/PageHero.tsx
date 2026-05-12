@@ -84,13 +84,15 @@ export function PageHero({
         </div>
       </div>
 
-      {/* Bottom fade so the hero blends into the next section */}
+      {/* Bottom fade so the hero blends into the next section.
+          Kept very short and subtle so it reads as a soft edge, not
+          a heavy shadow. */}
       <span
         aria-hidden
-        className="absolute inset-x-0 bottom-0 h-20 pointer-events-none"
+        className="absolute inset-x-0 bottom-0 h-6 pointer-events-none"
         style={{
           background:
-            'linear-gradient(180deg, rgba(2,40,58,0) 0%, rgba(255,255,255,1) 100%)',
+            'linear-gradient(180deg, rgba(2,40,58,0) 0%, rgba(255,255,255,0.35) 100%)',
         }}
       />
     </section>

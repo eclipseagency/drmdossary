@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getPage } from '@/lib/content'
 import { PageHero } from '@/components/PageHero'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
@@ -36,8 +37,30 @@ export default function AboutUsAR() {
       <Breadcrumbs lang="ar" items={[{ label: page.title }]} />
 
       <section className="py-12 md:py-16 bg-white">
-        <div className="container-narrow">
-          <article className="prose-medical" dangerouslySetInnerHTML={{ __html: page.body_html }} />
+        <div className="container">
+          <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-14 items-start">
+            <Reveal>
+              <div className="relative mx-auto w-full max-w-[420px]">
+                <span
+                  aria-hidden
+                  className="absolute -inset-6 rounded-[36px] bg-[radial-gradient(60%_60%_at_50%_50%,rgba(8,131,149,0.22),rgba(10,77,104,0.06)_60%,transparent_80%)] blur-2xl pointer-events-none"
+                />
+                <div className="relative aspect-[4/5] rounded-[26px] overflow-hidden ring-1 ring-brand-500/15 shadow-lift bg-gradient-brand-soft">
+                  <Image
+                    src="/uploads/dr.m.webp"
+                    alt=""
+                    fill
+                    priority
+                    sizes="(min-width: 768px) 420px, 90vw"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </Reveal>
+            <Reveal delay={120}>
+              <article className="prose-medical" dangerouslySetInnerHTML={{ __html: page.body_html }} />
+            </Reveal>
+          </div>
         </div>
       </section>
 
