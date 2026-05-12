@@ -45,7 +45,7 @@ export function PageHero({
               </Reveal>
             )}
             <h1 className="text-3xl md:text-5xl text-white leading-tight">
-              <TextReveal text={title} className="grad-text-light" delay={120} step={55} />
+              <TextReveal text={title} delay={120} step={55} />
             </h1>
             {lede && (
               <p className="mt-5 text-white/85 text-base md:text-lg max-w-2xl">
