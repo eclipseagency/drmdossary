@@ -36,9 +36,13 @@ export default function AboutUsEN() {
       </PageHero>
       <Breadcrumbs lang="en" items={[{ label: page.title }]} />
 
-      <section className="py-12 md:py-16 bg-white">
-        <div className="container">
-          <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-14 items-start">
+      <section className="relative py-16 md:py-24 bg-white overflow-hidden">
+        <span
+          aria-hidden
+          className="absolute -top-32 start-[-160px] h-[420px] w-[420px] rounded-full bg-brand-500/8 blur-3xl pointer-events-none"
+        />
+        <div className="container relative">
+          <div className="grid md:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-16 items-start">
             <Reveal>
               <div className="relative mx-auto w-full max-w-[420px]">
                 <span
@@ -57,9 +61,58 @@ export default function AboutUsEN() {
                 </div>
               </div>
             </Reveal>
-            <Reveal delay={120}>
-              <article className="prose-medical" dangerouslySetInnerHTML={{ __html: page.body_html }} />
-            </Reveal>
+
+            <div className="flex flex-col gap-6">
+              <Reveal>
+                <p className="inline-flex items-center gap-2 text-brand-500 font-semibold text-sm tracking-wider uppercase">
+                  <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
+                  About the Doctor
+                </p>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="text-3xl md:text-4xl text-brand-900 leading-tight m-0">
+                  Dr Mohammad Al Dossary
+                  <span className="block text-brand-500 text-xl md:text-2xl font-semibold mt-2">
+                    Consultant Ophthalmologist
+                  </span>
+                </h2>
+              </Reveal>
+              <Reveal delay={160}>
+                <span aria-hidden className="block w-14 h-[3px] rounded-full bg-brand-500" />
+              </Reveal>
+              <Reveal delay={240}>
+                <article
+                  className="prose-medical prose-medical-tight"
+                  dangerouslySetInnerHTML={{ __html: page.body_html }}
+                />
+              </Reveal>
+
+              <Reveal delay={320}>
+                <ul className="flex flex-wrap gap-2.5 list-none p-0 m-0 mt-4">
+                  {TRUST_BADGES.en.map((b) => (
+                    <li key={b}>
+                      <span className="inline-flex items-center gap-2 rounded-full bg-brand-50 ring-1 ring-brand-500/20 text-brand-900 text-[13.5px] font-semibold px-3.5 py-2">
+                        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="#088395" strokeWidth="2.5" aria-hidden>
+                          <path d="M3.5 8.5l3 3 6-6" />
+                        </svg>
+                        <span>{b}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+
+              <Reveal delay={400}>
+                <div className="flex flex-wrap gap-3 mt-2">
+                  <Link href="/en/book/" className="btn btn-lg btn-primary">
+                    {t.bookNow}
+                  </Link>
+                  <Link href="/en/services/" className="btn btn-lg btn-ghost">
+                    Our services
+                  </Link>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
