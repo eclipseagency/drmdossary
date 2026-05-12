@@ -31,7 +31,7 @@ export default function AboutUsAR() {
         image="/uploads/2024/02/DSC08886-1-removebg-preview.png"
         imageAlt=""
       >
-        <Link href="/contact-us/" className="btn btn-lg btn-light">
+        <Link href="/book/" className="btn btn-lg btn-light">
           {t.bookNow}
         </Link>
       </PageHero>

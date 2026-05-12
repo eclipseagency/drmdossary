@@ -22,7 +22,7 @@ export function InnerPage({ url, eyebrow, crumbs, showHeroCtas = true, heroImage
   if (!page) notFound()
   const lang: Lang = page.lang
   const t = T[lang]
-  const bookUrl = lang === 'ar' ? '/contact-us/' : '/en/contact-us/'
+  const bookUrl = lang === 'ar' ? '/book/' : '/en/book/'
 
   const breadcrumbItems = crumbs ?? [{ label: page.title }]
 

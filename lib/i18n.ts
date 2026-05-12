@@ -7,6 +7,7 @@ export const NAV_AR: Array<{ href: string; label: string }> = [
   { href: '/blog/', label: 'المقالات' },
   { href: '/faqs/', label: 'الأسئلة الشائعة' },
   { href: '/contact-us/', label: 'تواصل معنا' },
+  { href: '/book/', label: 'احجز معنا' },
 ]
 
 export const NAV_EN: Array<{ href: string; label: string }> = [
@@ -16,6 +17,7 @@ export const NAV_EN: Array<{ href: string; label: string }> = [
   { href: '/en/blog/', label: 'Blog' },
   { href: '/en/faq/', label: 'FAQ' },
   { href: '/en/contact-us/', label: 'Contact' },
+  { href: '/en/book/', label: 'Book' },
 ]
 
 export const T = {
@@ -59,6 +61,41 @@ export function dirFor(lang: Lang) {
   return lang === 'ar' ? 'rtl' : 'ltr'
 }
 
+/**
+ * Map a few slugs that differ between languages. Anything not in here is
+ * assumed to share the same path under both /ar/ and /en/.
+ */
+const SLUG_PAIRS: Array<[string, string]> = [
+  // [arabic-slug, english-slug]
+  ['/faqs/', '/en/faq/'],
+]
+
+/**
+ * Return the equivalent URL in the other language for the given pathname.
+ * E.g. `/about-us/` → `/en/about-us/`, `/en/services/` → `/services/`.
+ * Pages without a known counterpart fall back to the other language's home.
+ */
+export function switchLanguageUrl(pathname: string): string {
+  // Normalise: ensure leading slash, no query/hash.
+  if (!pathname.startsWith('/')) pathname = '/' + pathname
+  const cur = langFromPath(pathname)
+
+  // Special slug mappings first
+  for (const [ar, en] of SLUG_PAIRS) {
+    if (cur === 'ar' && pathname === ar) return en
+    if (cur === 'en' && pathname === en) return ar
+  }
+
+  if (cur === 'en') {
+    // /en/<rest> → /<rest>
+    const rest = pathname.replace(/^\/en(\/|$)/, '/')
+    return rest === '/' ? '/' : rest
+  }
+  // ar → en: prepend /en
+  if (pathname === '/') return '/en/'
+  return '/en' + pathname
+}
+
 export const CONTACT = {
   ar: {
     address: 'الرياض، المملكة العربية السعودية',
@@ -70,7 +107,7 @@ export const CONTACT = {
     email: 'info@drmdossary.com',
     hoursLabel: 'ساعات العمل',
     hours: 'السبت - الخميس: 9:00 ص - 9:00 م',
-    bookUrl: '/contact-us/',
+    bookUrl: '/book/',
   },
   en: {
     address: 'Riyadh, Saudi Arabia',
@@ -82,7 +119,7 @@ export const CONTACT = {
     email: 'info@drmdossary.com',
     hoursLabel: 'Hours',
     hours: 'Saturday – Thursday: 9:00 AM – 9:00 PM',
-    bookUrl: '/en/contact-us/',
+    bookUrl: '/en/book/',
   },
 } as const
 
@@ -202,7 +239,7 @@ export const HERO_AR = {
   eyebrow: 'استشاري طب وجراحة العيون',
   title: 'رعاية شاملة لرؤية أوضح وحياة أفضل',
   lede: 'خلفية أكاديمية راسخة، البورد السعودي في طب وجراحة العيون، وزمالة إكلينيكية من مستشفى الملك خالد التخصصي للعيون — رعاية متخصصة في القرنية، الماء الأبيض، وجراحات تصحيح النظر.',
-  primaryCta: { href: '/contact-us/', label: 'احجز موعدك' },
+  primaryCta: { href: '/book/', label: 'احجز موعدك' },
   ghostCta: { href: '/services/', label: 'تعرّف على خدماتنا' },
 } as const
 
@@ -210,7 +247,7 @@ export const HERO_EN = {
   eyebrow: 'Consultant Ophthalmologist',
   title: 'Comprehensive care for clearer vision and a better life',
   lede: 'A strong academic foundation, the Saudi Board in Ophthalmology, and a clinical fellowship from King Khaled Eye Specialist Hospital — specialised care in corneal, cataract, and vision-correction surgery.',
-  primaryCta: { href: '/en/contact-us/', label: 'Book an appointment' },
+  primaryCta: { href: '/en/book/', label: 'Book an appointment' },
   ghostCta: { href: '/en/services/', label: 'Our services' },
 } as const
 

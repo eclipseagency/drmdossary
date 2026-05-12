@@ -28,7 +28,7 @@ export function ServicePage({ url }: { url: string }) {
   const servicesLabel = isAr ? 'الخدمات' : 'Services'
   const relTitle = isAr ? 'خدمات ذات صلة' : 'Related services'
   const more = t.learnMore
-  const bookUrl = isAr ? '/contact-us/' : '/en/contact-us/'
+  const bookUrl = isAr ? '/book/' : '/en/book/'
 
   const allServices = SERVICES[lang]
   const related = allServices.filter((s) => s.href !== url)

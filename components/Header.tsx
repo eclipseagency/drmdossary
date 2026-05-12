@@ -6,16 +6,16 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { type Lang } from '@/lib/content'
-import { NAV_AR, NAV_EN, T } from '@/lib/i18n'
+import { NAV_AR, NAV_EN, T, switchLanguageUrl } from '@/lib/i18n'
 
 const LOGO = '/uploads/2024/02/logo.svg'
 
 export function Header({ lang, pathname }: { lang: Lang; pathname: string }) {
   const t = T[lang]
   const nav = lang === 'ar' ? NAV_AR : NAV_EN
-  const otherLangHref = lang === 'ar' ? '/en/' : '/'
+  const otherLangHref = switchLanguageUrl(pathname)
   const homeHref = lang === 'ar' ? '/' : '/en/'
-  const bookHref = lang === 'ar' ? '/contact-us/' : '/en/contact-us/'
+  const bookHref = lang === 'ar' ? '/book/' : '/en/book/'
 
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
