@@ -8,14 +8,14 @@ const ABOUT_IMG = '/uploads/2024/02/Group-10.png'
 
 export function AboutPreview({ lang }: { lang: Lang }) {
   const isAr = lang === 'ar'
-  const eyebrow = isAr ? 'عن الطبيب' : 'About the Doctor'
+  const eyebrow = isAr ? 'عن الدكتور' : 'About the Doctor'
   const title = isAr
     ? 'د. محمد الدوسري — استشاري طب وجراحة العيون'
     : 'Dr Mohammad Al Dossary — Consultant Ophthalmologist'
   const lede = isAr
     ? 'تلتقي الدقة والعناية لتقديم حلول طبية متطورة في مجال القرنية، الماء الأبيض، وجراحات تصحيح النظر، مع التزام بالرعاية الشخصية والمتابعة المستمرة.'
     : 'Precision and compassion combine to deliver advanced medical solutions for corneal, cataract, and vision-correction surgery — with a commitment to personalised care and long-term follow-up.'
-  const ctaLabel = isAr ? 'المزيد عن الطبيب' : 'More about the doctor'
+  const ctaLabel = isAr ? 'المزيد عن الدكتور' : 'More about the doctor'
   const ctaHref = isAr ? '/about-us/' : '/en/about-us/'
 
   return (

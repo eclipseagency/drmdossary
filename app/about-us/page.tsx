@@ -26,7 +26,7 @@ export default function AboutUsAR() {
   return (
     <>
       <PageHero
-        eyebrow="عن الطبيب"
+        eyebrow="عن الدكتور"
         title={page.title}
         lede={page.seo_description}
       >
@@ -67,7 +67,7 @@ export default function AboutUsAR() {
               <Reveal>
                 <p className="inline-flex items-center gap-2 text-brand-500 font-semibold text-sm tracking-wider uppercase">
                   <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-brand-500" />
-                  نبذة عن الطبيب
+                  نبذة عن الدكتور
                 </p>
               </Reveal>
               <Reveal delay={80}>
