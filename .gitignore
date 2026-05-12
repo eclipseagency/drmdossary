@@ -1,29 +1,41 @@
-# Old WordPress backup material — never commit
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# legacy
 backup-source/
 *.sql
-*.xml
-!sitemap.xml
-*.zip
 *.tar.gz
-*.tgz
-*.bak
-wp-config.php
-wp-admin/
-wp-includes/
-wp-content/
-.htaccess
-
-# Generated locally during regeneration
-__pycache__/
-*.pyc
-
-# Editor / OS
-.DS_Store
-Thumbs.db
-
-# Local tooling
-node_modules/
-.vercel
-.env
-.env.*
-!.env.example
+*.zip
