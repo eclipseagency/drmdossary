@@ -19,7 +19,10 @@ from pathlib import Path
 
 CONTENT = Path(__file__).resolve().parent.parent / "data" / "content.json"
 ENDPOINT = "https://translate.googleapis.com/translate_a/single"
-MAX_CHUNK = 4500  # Google's free endpoint truncates around 5000 chars
+MYMEMORY = "https://api.mymemory.translated.net/get"
+# 2000 chars is a more forgiving chunk size for the free Google endpoint —
+# 4500 reliably triggered HTTP 400 on some longer Arabic posts.
+MAX_CHUNK = 1800
 SRC = "ar"
 TGT = "en"
 
@@ -46,20 +49,95 @@ def _http_get_translation(text: str) -> str:
     return "".join(seg[0] for seg in data[0] if seg and seg[0])
 
 
-def translate_chunk(text: str, retries: int = 4) -> str:
-    """Translate a single chunk; retry with backoff on transient errors."""
+def _http_mymemory_translation(text: str) -> str:
+    """Fallback when Google's endpoint rejects the chunk. MyMemory has a
+    500-char limit per request — chunks here must already be short."""
+    if not text.strip():
+        return text
+    params = {
+        "q": text,
+        "langpair": f"{SRC}|{TGT}",
+    }
+    url = f"{MYMEMORY}?{urllib.parse.urlencode(params)}"
+    req = urllib.request.Request(
+        url, headers={"User-Agent": "Mozilla/5.0 drmdossary-translate-script"}
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        data = json.loads(r.read().decode("utf-8"))
+    return data.get("responseData", {}).get("translatedText", text)
+
+
+def translate_chunk(text: str, retries: int = 3) -> str:
+    """Translate a single chunk via Google. On exhaustion, fall back to
+    MyMemory which has a different rate-limit/limit profile and tends
+    to accept what Google rejects."""
     delay = 1.0
     last_err: Exception | None = None
     for _ in range(retries):
         try:
             out = _http_get_translation(text)
-            time.sleep(0.25)
+            time.sleep(0.3)
             return out
         except Exception as e:
             last_err = e
             time.sleep(delay)
             delay *= 2
-    raise RuntimeError(f"translation failed after {retries} retries: {last_err}")
+
+    # Fallback — chunk into ≤500 char pieces for MyMemory.
+    print(f"    [google failed: {last_err}] -> mymemory fallback", flush=True)
+    mm_chunks = _mm_split(text, 480)
+    out_parts: list[str] = []
+    for c in mm_chunks:
+        if not c.strip():
+            out_parts.append(c)
+            continue
+        for _ in range(3):
+            try:
+                out_parts.append(_http_mymemory_translation(c))
+                time.sleep(0.4)
+                break
+            except Exception as e:
+                last_err = e
+                time.sleep(1.0)
+        else:
+            raise RuntimeError(f"mymemory fallback failed: {last_err}")
+    return "".join(out_parts)
+
+
+def _mm_split(text: str, limit: int) -> list[str]:
+    """Split text on tag boundaries / spaces to keep pieces under limit."""
+    if len(text) <= limit:
+        return [text]
+    pieces = re.split(r"(<[^>]+>)", text)
+    chunks: list[str] = []
+    buf = ""
+    for p in pieces:
+        if not p:
+            continue
+        if len(buf) + len(p) > limit and buf:
+            chunks.append(buf)
+            buf = p
+        else:
+            buf += p
+    if buf:
+        chunks.append(buf)
+    # Further split any text-only chunk that's still over limit
+    out: list[str] = []
+    for c in chunks:
+        if len(c) <= limit:
+            out.append(c)
+            continue
+        words = c.split(" ")
+        b = ""
+        for w in words:
+            if len(b) + len(w) + 1 > limit and b:
+                out.append(b)
+                b = w
+            else:
+                b = (b + " " + w) if b else w
+        if b:
+            out.append(b)
+    return out
 
 
 # Split HTML at safe boundaries (between top-level block tags) so we can
