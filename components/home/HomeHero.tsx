@@ -86,12 +86,12 @@ export function HomeHero({ lang }: { lang: Lang }) {
               (Previously used grad-text-light but bg-clip:text doesn't
               render on a span containing many inline-block word spans
               from TextReveal — left the title invisible.) */}
-          <h1 className="text-4xl md:text-6xl lg:text-[4.2rem] leading-[1.08] tracking-tight text-white">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl leading-[1.15] tracking-tight text-white">
             <TextReveal text={hero.title} delay={120} step={55} />
           </h1>
 
           {/* Lede */}
-          <p className="mt-7 text-white/80 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-5 text-white/80 text-sm md:text-[15px] max-w-2xl mx-auto leading-relaxed">
             <TextReveal text={hero.lede} delay={500} step={28} offset={10} />
           </p>
 
