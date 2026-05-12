@@ -15,7 +15,7 @@ export function AboutPreview({ lang }: { lang: Lang }) {
   const lede = isAr
     ? 'تلتقي الدقة والعناية لتقديم حلول طبية متطورة في مجال القرنية، الماء الأبيض، وجراحات تصحيح النظر، مع التزام بالرعاية الشخصية والمتابعة المستمرة.'
     : 'Precision and compassion combine to deliver advanced medical solutions for corneal, cataract, and vision-correction surgery — with a commitment to personalised care and long-term follow-up.'
-  const ctaLabel = isAr ? 'المزيد عن الدكتور' : 'More about the doctor'
+  const ctaLabel = isAr ? 'اعرف المزيد' : 'Learn more'
   const ctaHref = isAr ? '/about-us/' : '/en/about-us/'
 
   return (
