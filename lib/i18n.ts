@@ -141,18 +141,21 @@ export const SERVICES = {
     {
       href: '/vision-correction-surgeries/',
       icon: '/uploads/2024/02/vision.png',
+      image: '/uploads/2024/12/عملية-الليزك-للعيون-1024x666.jpg',
       name: 'جراحات تصحيح النظر',
       desc: 'أحدث تقنيات الليزك والليزر السطحي وزراعة العدسات لتصحيح قصر النظر، طول النظر، والاستجماتيزم بدقة عالية.',
     },
     {
       href: '/treatment-of-cataracts/',
       icon: '/uploads/2024/02/lasik.png',
+      image: '/uploads/2024/12/lens-implant.jpg',
       name: 'علاج الماء الأبيض (الساد)',
       desc: 'علاج المياه البيضاء (الساد) بأحدث أنظمة الفاكو واستبدال العدسة لإعادة الرؤية الواضحة بأمان.',
     },
     {
       href: '/corneal-surgeries/',
       icon: '/uploads/2024/02/laser.png',
+      image: '/uploads/2024/12/جراحة-العيون.jpg',
       name: 'جراحات القرنية',
       desc: 'علاج القرنية المخروطية وزراعة القرنية وتثبيتها (Cross-Linking) بإشراف استشاري بزمالة من مستشفى الملك خالد التخصصي للعيون.',
     },
@@ -161,18 +164,21 @@ export const SERVICES = {
     {
       href: '/en/vision-correction-surgeries/',
       icon: '/uploads/2024/02/vision.png',
+      image: '/uploads/2024/12/عملية-الليزك-للعيون-1024x666.jpg',
       name: 'Vision Correction Surgeries',
       desc: 'Advanced LASIK, surface laser (PRK), and implantable contact lens procedures to correct myopia, hyperopia, and astigmatism with precision.',
     },
     {
       href: '/en/treatment-of-cataracts/',
       icon: '/uploads/2024/02/lasik.png',
+      image: '/uploads/2024/12/lens-implant.jpg',
       name: 'Cataract Treatment',
       desc: 'Modern phacoemulsification and premium lens implantation to restore clear vision safely.',
     },
     {
       href: '/en/corneal-surgeries/',
       icon: '/uploads/2024/02/laser.png',
+      image: '/uploads/2024/12/جراحة-العيون.jpg',
       name: 'Corneal Surgeries',
       desc: 'Keratoconus management, corneal cross-linking, and corneal transplantation performed by a board-certified consultant with King Khaled Eye Specialist Hospital fellowship training.',
     },
