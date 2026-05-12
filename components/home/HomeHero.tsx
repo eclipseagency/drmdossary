@@ -39,14 +39,28 @@ export function HomeHero({ lang }: { lang: Lang }) {
   return (
     <section
       ref={ref}
-      className="relative isolate overflow-hidden"
+      className="relative isolate overflow-hidden -mt-[80px] md:-mt-[90px] pt-[80px] md:pt-[90px]"
       style={{
-        background:
-          'linear-gradient(180deg, #eef5f7 0%, #ffffff 100%)',
         ['--spot-x' as string]: '50%',
         ['--spot-y' as string]: '40%',
       }}
     >
+      {/* Background photo */}
+      <span aria-hidden className="absolute inset-0 -z-10">
+        <Image
+          src="/uploads/2024/03/bg.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </span>
+      {/* Overlay so floating header + text stay readable on the photo */}
+      <span
+        aria-hidden
+        className="absolute inset-0 -z-[5] bg-[linear-gradient(180deg,rgba(247,249,251,0.92)_0%,rgba(247,249,251,0.78)_55%,rgba(247,249,251,0.96)_100%)]"
+      />
       {/* Cursor spotlight */}
       <div
         aria-hidden
@@ -59,20 +73,18 @@ export function HomeHero({ lang }: { lang: Lang }) {
       {/* Floating shapes */}
       <span
         aria-hidden
-        className="absolute -top-40 end-[-120px] h-[520px] w-[520px] rounded-full bg-brand-500/35 blur-3xl animate-float-a respect-motion"
+        className="absolute -top-40 end-[-120px] h-[520px] w-[520px] rounded-full bg-brand-500/25 blur-3xl animate-float-a respect-motion"
       />
       <span
         aria-hidden
-        className="absolute -bottom-44 start-[-100px] h-[460px] w-[460px] rounded-full bg-brand-600/30 blur-3xl animate-float-b respect-motion"
+        className="absolute -bottom-44 start-[-100px] h-[460px] w-[460px] rounded-full bg-brand-600/22 blur-3xl animate-float-b respect-motion"
       />
       <span
         aria-hidden
-        className="hidden md:block absolute top-[40%] start-[38%] h-[320px] w-[320px] rounded-full bg-brand-400/35 blur-3xl animate-float-c respect-motion"
+        className="hidden md:block absolute top-[40%] start-[38%] h-[320px] w-[320px] rounded-full bg-brand-400/25 blur-3xl animate-float-c respect-motion"
       />
-      {/* Subtle noise */}
-      <span aria-hidden className="absolute inset-0 bg-noise opacity-[0.035] mix-blend-multiply pointer-events-none" />
 
-      <div className="container relative py-16 md:py-24 lg:py-28">
+      <div className="container relative py-12 md:py-20 lg:py-24">
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
           <div>
             <Reveal>
