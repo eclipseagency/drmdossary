@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import { type Lang } from '@/lib/content'
 import { HERO_AR, HERO_EN, TRUST_BADGES } from '@/lib/i18n'
 import { Reveal } from '@/components/Reveal'
@@ -14,15 +15,62 @@ export function HomeHero({ lang }: { lang: Lang }) {
   const hero = lang === 'ar' ? HERO_AR : HERO_EN
   const badges = TRUST_BADGES[lang]
   const reduced = useReducedMotion()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (reduced || !ref.current) return
+    let raf = 0
+    const el = ref.current
+    const onMove = (e: PointerEvent) => {
+      const r = el.getBoundingClientRect()
+      const x = ((e.clientX - r.left) / r.width) * 100
+      const y = ((e.clientY - r.top) / r.height) * 100
+      if (raf) cancelAnimationFrame(raf)
+      raf = requestAnimationFrame(() => {
+        el.style.setProperty('--spot-x', `${x}%`)
+        el.style.setProperty('--spot-y', `${y}%`)
+      })
+    }
+    el.addEventListener('pointermove', onMove, { passive: true })
+    return () => el.removeEventListener('pointermove', onMove)
+  }, [reduced])
 
   return (
     <section
+      ref={ref}
       className="relative isolate overflow-hidden"
       style={{
         background:
           'linear-gradient(180deg, #eef5f7 0%, #ffffff 100%)',
+        ['--spot-x' as string]: '50%',
+        ['--spot-y' as string]: '40%',
       }}
     >
+      {/* Cursor spotlight */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 transition-[background] duration-[80ms] respect-motion"
+        style={{
+          background:
+            'radial-gradient(420px circle at var(--spot-x) var(--spot-y), rgba(8,131,149,.18), rgba(8,131,149,0) 60%)',
+        }}
+      />
+      {/* Floating shapes */}
+      <span
+        aria-hidden
+        className="absolute -top-40 end-[-120px] h-[520px] w-[520px] rounded-full bg-brand-500/35 blur-3xl animate-float-a respect-motion"
+      />
+      <span
+        aria-hidden
+        className="absolute -bottom-44 start-[-100px] h-[460px] w-[460px] rounded-full bg-brand-600/30 blur-3xl animate-float-b respect-motion"
+      />
+      <span
+        aria-hidden
+        className="hidden md:block absolute top-[40%] start-[38%] h-[320px] w-[320px] rounded-full bg-brand-400/35 blur-3xl animate-float-c respect-motion"
+      />
+      {/* Subtle noise */}
+      <span aria-hidden className="absolute inset-0 bg-noise opacity-[0.035] mix-blend-multiply pointer-events-none" />
+
       <div className="container relative py-16 md:py-24 lg:py-28">
         <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
           <div>
@@ -61,7 +109,7 @@ export function HomeHero({ lang }: { lang: Lang }) {
             </ul>
           </div>
 
-          {/* Doctor portrait — bare, no surrounding decoration */}
+          {/* Doctor portrait — bare on top of the hero background */}
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
