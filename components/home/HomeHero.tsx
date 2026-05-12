@@ -48,7 +48,7 @@ export function HomeHero({ lang }: { lang: Lang }) {
       {/* Background photo */}
       <span aria-hidden className="absolute inset-0 -z-10">
         <Image
-          src="/uploads/2024/03/bg.jpg"
+          src="/uploads/hero-bg.png"
           alt=""
           fill
           priority
@@ -56,10 +56,12 @@ export function HomeHero({ lang }: { lang: Lang }) {
           className="object-cover"
         />
       </span>
-      {/* Overlay so floating header + text stay readable on the photo */}
+      {/* Very light overlay so the photo stays dominant and the
+          header + text retain enough contrast. Stronger at the bottom
+          so the section blends into the page below. */}
       <span
         aria-hidden
-        className="absolute inset-0 -z-[5] bg-[linear-gradient(180deg,rgba(247,249,251,0.92)_0%,rgba(247,249,251,0.78)_55%,rgba(247,249,251,0.96)_100%)]"
+        className="absolute inset-0 -z-[5] bg-[linear-gradient(180deg,rgba(247,249,251,0.35)_0%,rgba(247,249,251,0.18)_45%,rgba(247,249,251,0.88)_100%)]"
       />
       {/* Cursor spotlight */}
       <div
