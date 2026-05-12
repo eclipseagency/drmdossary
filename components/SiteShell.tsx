@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { DirSync } from './DirSync'
+import { SmoothScroll } from './SmoothScroll'
 import { langFromPath } from '@/lib/i18n'
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <DirSync />
+      <SmoothScroll />
       <Header lang={lang} pathname={pathname} />
       <main id="main">{children}</main>
       <Footer lang={lang} />
