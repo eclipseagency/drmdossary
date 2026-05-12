@@ -1,19 +1,21 @@
 'use client'
 
 import Link from 'next/link'
-import { useReducedMotion } from 'framer-motion'
+import Image from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { type Lang } from '@/lib/content'
-import { HERO_AR, HERO_EN } from '@/lib/i18n'
+import { HERO_AR, HERO_EN, TRUST_BADGES } from '@/lib/i18n'
+import { TiltCard } from '@/components/TiltCard'
 import { Reveal } from '@/components/Reveal'
-import { TextReveal } from '@/components/TextReveal'
+
+const DOCTOR_HEADSHOT = '/uploads/2024/02/DSC08886-1-removebg-preview.png'
 
 export function HomeHero({ lang }: { lang: Lang }) {
   const hero = lang === 'ar' ? HERO_AR : HERO_EN
+  const badges = TRUST_BADGES[lang]
   const reduced = useReducedMotion()
   const ref = useRef<HTMLDivElement>(null)
-
-  const isAr = lang === 'ar'
 
   useEffect(() => {
     if (reduced || !ref.current) return
@@ -36,100 +38,136 @@ export function HomeHero({ lang }: { lang: Lang }) {
   return (
     <section
       ref={ref}
-      className="relative isolate overflow-hidden bg-brand-900 text-white pt-16 md:pt-24 pb-20 md:pb-28"
+      className="relative isolate overflow-hidden"
       style={{
+        background:
+          'linear-gradient(180deg, #eef5f7 0%, #ffffff 100%)',
         ['--spot-x' as string]: '50%',
         ['--spot-y' as string]: '40%',
       }}
     >
-      {/* Chevron texture */}
-      <span
-        aria-hidden
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='20' viewBox='0 0 40 20'><path d='M0 20 L20 0 L40 20' fill='none' stroke='%23ffffff' stroke-width='1' opacity='0.5'/></svg>\")",
-        }}
-      />
-      {/* Dotted texture mid-screen */}
-      <span
-        aria-hidden
-        className="absolute inset-0 opacity-[0.06] pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
       {/* Cursor spotlight */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 transition-[background] duration-[80ms] respect-motion"
         style={{
           background:
-            'radial-gradient(520px circle at var(--spot-x) var(--spot-y), rgba(8,131,149,.32), rgba(8,131,149,0) 60%)',
+            'radial-gradient(420px circle at var(--spot-x) var(--spot-y), rgba(8,131,149,.18), rgba(8,131,149,0) 60%)',
         }}
       />
-      {/* Floating accent glows */}
+      {/* Floating shapes */}
       <span
         aria-hidden
-        className="absolute -top-32 end-[-160px] h-[520px] w-[520px] rounded-full bg-brand-500/30 blur-3xl animate-float-a respect-motion"
+        className="absolute -top-40 end-[-120px] h-[520px] w-[520px] rounded-full bg-brand-500/35 blur-3xl animate-float-a respect-motion"
       />
       <span
         aria-hidden
-        className="absolute -bottom-40 start-[-120px] h-[460px] w-[460px] rounded-full bg-brand-700/45 blur-3xl animate-float-b respect-motion"
+        className="absolute -bottom-44 start-[-100px] h-[460px] w-[460px] rounded-full bg-brand-600/30 blur-3xl animate-float-b respect-motion"
       />
+      <span
+        aria-hidden
+        className="hidden md:block absolute top-[40%] start-[38%] h-[320px] w-[320px] rounded-full bg-brand-400/35 blur-3xl animate-float-c respect-motion"
+      />
+      {/* Subtle noise */}
+      <span aria-hidden className="absolute inset-0 bg-noise opacity-[0.035] mix-blend-multiply pointer-events-none" />
 
-      <div className="container relative">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Title — large, bold, plain white on the dark navy bg.
-              (Previously used grad-text-light but bg-clip:text doesn't
-              render on a span containing many inline-block word spans
-              from TextReveal — left the title invisible.) */}
-          <h1 className="text-2xl md:text-3xl lg:text-4xl leading-[1.15] tracking-tight text-white">
-            <TextReveal text={hero.title} delay={120} step={55} />
-          </h1>
+      <div className="container relative py-16 md:py-24 lg:py-28">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
+          <div>
+            <Reveal>
+              <p className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/80 backdrop-blur border border-brand-500/15 text-brand-600 text-sm font-semibold shadow-[0_2px_12px_rgba(8,131,149,0.10)]">
+                {hero.eyebrow}
+              </p>
+            </Reveal>
+            <Reveal delay={80}>
+              <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight">
+                <span className="grad-text">{hero.title}</span>
+              </h1>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mt-6 text-ink-muted text-base md:text-lg max-w-[56ch] leading-relaxed">
+                {hero.lede}
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link href={hero.primaryCta.href} className="btn btn-lg btn-primary">
+                  {hero.primaryCta.label}
+                </Link>
+                <Link href={hero.ghostCta.href} className="btn btn-lg btn-ghost">
+                  {hero.ghostCta.label}
+                </Link>
+              </div>
+            </Reveal>
+            <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 list-none p-0">
+              {badges.map((b, i) => (
+                <Reveal as="li" key={b} delay={300 + i * 80} className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 shadow-ring">
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="#088395" strokeWidth="2.5">
+                      <path d="M3.5 8.5l3 3 6-6" />
+                    </svg>
+                  </span>
+                  <span className="text-[15px] font-medium text-ink">{b}</span>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
 
-          {/* Lede */}
-          <p className="mt-5 text-white/80 text-sm md:text-[15px] max-w-2xl mx-auto leading-relaxed">
-            <TextReveal text={hero.lede} delay={500} step={28} offset={10} />
-          </p>
-
-          {/* CTAs */}
-          <Reveal delay={240}>
-            <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <Link
-                href={hero.primaryCta.href}
-                className="inline-flex items-center gap-3 rounded-full bg-brand-500 hover:bg-brand-400 text-white font-bold py-3.5 ps-6 pe-2 text-[15px] shadow-[0_8px_24px_rgba(8,131,149,0.40)] transition-all hover:-translate-y-0.5"
-              >
-                <span>{hero.primaryCta.label}</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-900/40">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={isAr ? { transform: 'scaleX(-1)' } : undefined}>
-                    <path d="M5 12h14M13 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </Link>
-              <Link
-                href={hero.ghostCta.href}
-                className="inline-flex items-center gap-3 rounded-full bg-white/[0.06] hover:bg-white/[0.12] ring-1 ring-white/15 text-white font-bold py-3.5 px-6 text-[15px] transition-all hover:-translate-y-0.5"
-              >
-                <span>{hero.ghostCta.label}</span>
-              </Link>
-            </div>
-          </Reveal>
+          {/* Doctor card — 3D layered stack */}
+          <motion.div
+            initial={reduced ? false : { opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 0.65, 0.32, 1] }}
+            className="relative w-full max-w-[460px] mx-auto"
+            style={{ perspective: 1400 }}
+          >
+            {/* Outer glow */}
+            <span
+              aria-hidden
+              className="absolute -inset-y-10 -inset-x-8 rounded-[40px] bg-[radial-gradient(60%_60%_at_50%_60%,rgba(8,131,149,.45),rgba(10,77,104,.15)_50%,transparent_75%)] blur-2xl pointer-events-none"
+            />
+            <TiltCard
+              isRTL={lang === 'ar'}
+              className="group relative aspect-[4/5] animate-doctor-float respect-motion"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+              {/* Conic ring */}
+              <span
+                aria-hidden
+                className="absolute inset-0 rounded-[30px] bg-gradient-ring animate-ring-spin respect-motion"
+                style={{
+                  WebkitMask:
+                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                  mask:
+                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                  padding: 2,
+                }}
+              />
+              {/* Front frame */}
+              <div className="absolute inset-0 rounded-[30px] overflow-hidden bg-gradient-brand-soft shadow-lift ring-1 ring-white/15 flex items-end justify-center">
+                <span
+                  aria-hidden
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      'radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 60%), radial-gradient(circle at 50% 110%, rgba(255,255,255,.22), transparent 55%)',
+                  }}
+                />
+                <Image
+                  src={DOCTOR_HEADSHOT}
+                  alt=""
+                  width={460}
+                  height={576}
+                  priority
+                  className="relative h-full w-full object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
+                />
+              </div>
+            </TiltCard>
+          </motion.div>
         </div>
       </div>
-
-      {/* Soft fade so the hero blends into the page below. Short and
-          subtle — heavy "shadow" was too aggressive. */}
-      <span
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-8 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(180deg, rgba(2,40,58,0) 0%, rgba(247,249,251,0.4) 100%)',
-        }}
-      />
     </section>
   )
 }
