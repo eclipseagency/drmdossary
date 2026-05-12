@@ -48,10 +48,8 @@ export function BlogPreview({ lang }: { lang: Lang }) {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {posts.map((p, i) => (
-            <Reveal key={p.url} delay={i * 100}>
-              <BlogCard post={p} />
-            </Reveal>
+          {posts.map((p) => (
+            <BlogCard key={p.url} post={p} />
           ))}
         </div>
       </div>

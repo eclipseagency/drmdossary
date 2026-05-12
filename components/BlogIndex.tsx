@@ -3,7 +3,6 @@ import { getPosts } from '@/lib/content'
 import { PageHero } from './PageHero'
 import { Breadcrumbs } from './Breadcrumbs'
 import { CTABand } from './CTABand'
-import { Reveal } from './Reveal'
 import { BlogCard } from './BlogCard'
 
 export function BlogIndex({ lang }: { lang: Lang }) {
@@ -22,10 +21,8 @@ export function BlogIndex({ lang }: { lang: Lang }) {
       <section className="py-16 md:py-20 bg-white">
         <div className="container">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((p, i) => (
-              <Reveal key={p.url} delay={(i % 6) * 80}>
-                <BlogCard post={p} />
-              </Reveal>
+            {posts.map((p) => (
+              <BlogCard key={p.url} post={p} />
             ))}
           </div>
         </div>
