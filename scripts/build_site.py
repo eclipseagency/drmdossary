@@ -847,22 +847,37 @@ def render_home(lang: str) -> dict:
     seo_desc = seo["description"] or lede
 
     # Build hero
-    badges_html = "".join(f'<li>{e(b)}</li>' for b in trust)
-    hero = f"""<section class="home-hero">
+    badges_html = "".join(
+        f'<li class="reveal" data-reveal-delay="{300 + i*80}">{e(b)}</li>'
+        for i, b in enumerate(trust)
+    )
+    hero = f"""<section class="home-hero" data-spotlight>
+  <div class="home-hero-bg" aria-hidden="true">
+    <span class="hero-shape hero-shape-1"></span>
+    <span class="hero-shape hero-shape-2"></span>
+    <span class="hero-shape hero-shape-3"></span>
+    <span class="hero-noise"></span>
+    <span class="hero-spot"></span>
+  </div>
   <div class="container home-hero-inner">
     <div class="home-hero-text">
-      <p class="hero-eyebrow">{e(eyebrow)}</p>
-      <h1 class="home-hero-title">{e(title)}</h1>
-      <p class="home-hero-lede">{e(lede)}</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="{cta_primary[0]}">{e(cta_primary[1])}</a>
+      <p class="hero-eyebrow reveal">{e(eyebrow)}</p>
+      <h1 class="home-hero-title reveal" data-reveal-delay="80"><span class="grad-text">{e(title)}</span></h1>
+      <p class="home-hero-lede reveal" data-reveal-delay="160">{e(lede)}</p>
+      <div class="hero-ctas reveal" data-reveal-delay="240">
+        <a class="btn btn-primary btn-lg btn-depth" href="{cta_primary[0]}"><span>{e(cta_primary[1])}</span></a>
         <a class="btn btn-ghost btn-lg" href="{cta_ghost[0]}">{e(cta_ghost[1])}</a>
       </div>
       <ul class="trust-badges">{badges_html}</ul>
     </div>
-    <div class="home-hero-aside">
-      <div class="doctor-card">
-        <img src="{DOCTOR_HEADSHOT}" alt="" loading="eager" decoding="async">
+    <div class="home-hero-aside reveal" data-reveal-delay="120">
+      <div class="doctor-card" data-tilt>
+        <span class="doctor-card-glow" aria-hidden="true"></span>
+        <span class="doctor-card-ring" aria-hidden="true"></span>
+        <div class="doctor-card-frame">
+          <img src="{DOCTOR_HEADSHOT}" alt="" loading="eager" decoding="async">
+        </div>
+        <span class="doctor-card-glare" aria-hidden="true"></span>
       </div>
     </div>
   </div>
@@ -1783,72 +1798,237 @@ hr { border: 0; border-top: 1px solid var(--color-border); margin: 2rem 0; }
   .header-cta { display: none; }
 }
 
-/* ===== Home hero ===== */
+/* ===== Home hero (section 2 of redesign) =====
+   Layered backdrop: pastel base + three soft floating shapes + faint SVG
+   noise + a cursor-follow spotlight. The doctor card sits on a 3D-feeling
+   stack of: outer glow, rotating accent ring, framed portrait, glare. */
 .home-hero {
-  background:
-    radial-gradient(circle at top right, rgba(8,131,149,0.18), transparent 60%),
-    radial-gradient(circle at bottom left, rgba(10,77,104,0.12), transparent 60%),
-    linear-gradient(180deg, #f1f7f9 0%, #ffffff 100%);
-  padding: clamp(3rem, 8vw, 6rem) 0 clamp(3rem, 8vw, 5rem);
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; isolation: isolate;
+  padding: clamp(3.5rem, 9vw, 6.5rem) 0 clamp(3rem, 8vw, 5.5rem);
+  background: linear-gradient(180deg, #eef5f7 0%, #ffffff 100%);
+  --spot-x: 50%;
+  --spot-y: 40%;
 }
+.home-hero-bg {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+}
+.hero-shape {
+  position: absolute; display: block; border-radius: 50%;
+  filter: blur(48px); opacity: .55;
+  will-change: transform;
+}
+.hero-shape-1 {
+  width: 520px; height: 520px; top: -160px; inset-inline-end: -120px;
+  background: radial-gradient(circle, rgba(8,131,149,.45) 0%, rgba(8,131,149,0) 65%);
+  animation: heroFloatA 14s ease-in-out infinite;
+}
+.hero-shape-2 {
+  width: 460px; height: 460px; bottom: -180px; inset-inline-start: -100px;
+  background: radial-gradient(circle, rgba(10,77,104,.32) 0%, rgba(10,77,104,0) 65%);
+  animation: heroFloatB 18s ease-in-out infinite;
+}
+.hero-shape-3 {
+  width: 320px; height: 320px; top: 40%; inset-inline-start: 38%;
+  background: radial-gradient(circle, rgba(93,212,212,.35) 0%, rgba(93,212,212,0) 65%);
+  animation: heroFloatC 22s ease-in-out infinite;
+}
+@keyframes heroFloatA {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50%      { transform: translate3d(-20px, 28px, 0); }
+}
+@keyframes heroFloatB {
+  0%, 100% { transform: translate3d(0,0,0); }
+  50%      { transform: translate3d(24px, -22px, 0); }
+}
+@keyframes heroFloatC {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  50%      { transform: translate3d(16px, -14px, 0) scale(1.06); }
+}
+.hero-noise {
+  position: absolute; inset: 0; opacity: .035; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+.hero-spot {
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    420px circle at var(--spot-x) var(--spot-y),
+    rgba(8,131,149,.18),
+    rgba(8,131,149,0) 60%
+  );
+  transition: background 80ms linear; pointer-events: none;
+}
+
 .home-hero-inner {
+  position: relative; z-index: 1;
   display: grid; grid-template-columns: 1.05fr .95fr;
   gap: clamp(2rem, 6vw, 4rem); align-items: center;
 }
 .hero-eyebrow {
   display: inline-block; margin: 0 0 1rem;
-  padding: .35rem 1rem; border-radius: 999px;
-  background: var(--color-accent-soft); color: var(--color-primary);
+  padding: .4rem 1rem; border-radius: 999px;
+  background: rgba(255,255,255,.85); color: var(--color-primary);
+  border: 1px solid rgba(8,131,149,.18);
   font-size: .85rem; font-weight: 600; letter-spacing: .02em;
+  box-shadow: 0 2px 12px rgba(8,131,149,.10);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
 }
-.home-hero-title { font-size: clamp(2.1rem, 4.5vw, 3.4rem); line-height: 1.15; margin: 0 0 1.25rem; }
+.home-hero-title {
+  font-size: clamp(2.1rem, 4.6vw, 3.5rem);
+  line-height: 1.15; margin: 0 0 1.25rem;
+  letter-spacing: -.015em;
+}
+/* Subtle gradient text using brand colors. Falls back to solid for
+   browsers without background-clip support. */
+.grad-text {
+  background: linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-primary) 45%, var(--color-accent) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+}
+@supports not (background-clip: text) {
+  .grad-text { color: var(--color-primary-darker); -webkit-text-fill-color: currentColor; }
+}
 .home-hero-lede { font-size: clamp(1.05rem, 1.6vw, 1.18rem); color: var(--color-muted); max-width: 56ch; margin: 0 0 2rem; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: .8rem; margin-bottom: 2rem; }
+
+/* Depth-button variant used in the hero. Layered shadow + glow on hover,
+   compresses on click. Inner <span> lets us push it down without losing
+   the outer shadow. */
+.btn-depth {
+  position: relative; overflow: hidden; isolation: isolate;
+  box-shadow:
+    0 6px 18px rgba(10,77,104,.32),
+    0 1px 0 rgba(255,255,255,.15) inset,
+    0 -3px 0 rgba(0,0,0,.10) inset;
+  transition: transform .18s ease, box-shadow .25s ease, filter .25s ease;
+}
+.btn-depth::before {
+  content: ""; position: absolute; inset: -2px; z-index: -1; border-radius: inherit;
+  background: radial-gradient(circle at 50% -10%, rgba(255,255,255,.45), transparent 60%);
+  opacity: 0; transition: opacity .35s ease;
+}
+.btn-depth:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 30px rgba(10,77,104,.40),
+    0 0 0 4px rgba(93,212,212,.18),
+    0 1px 0 rgba(255,255,255,.20) inset,
+    0 -3px 0 rgba(0,0,0,.10) inset;
+}
+.btn-depth:hover::before { opacity: 1; }
+.btn-depth:active { transform: translateY(0) scale(.98); transition-duration: 80ms; }
+
 .trust-badges {
   list-style: none; padding: 0; margin: 0;
   display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: .55rem 1rem;
 }
 .trust-badges li {
-  position: relative; padding-inline-start: 1.5rem;
+  position: relative; padding-inline-start: 1.6rem;
   font-size: .95rem; color: var(--color-text); font-weight: 500;
 }
 .trust-badges li::before {
-  content: ""; position: absolute; inset-inline-start: 0; top: .35rem;
-  width: 1.1rem; height: 1.1rem; border-radius: 50%;
-  background: var(--color-accent-soft) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23088395' stroke-width='2.5'><path d='M3.5 8.5l3 3 6-6'/></svg>") center/70% no-repeat;
+  content: ""; position: absolute; inset-inline-start: 0; top: .25rem;
+  width: 1.25rem; height: 1.25rem; border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,0) 60%),
+    var(--color-accent-soft)
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23088395' stroke-width='2.5'><path d='M3.5 8.5l3 3 6-6'/></svg>") center/65% no-repeat;
+  box-shadow: 0 2px 6px rgba(8,131,149,.18), 0 0 0 1px rgba(8,131,149,.10);
 }
-.home-hero-aside { position: relative; display: flex; justify-content: center; }
+
+/* Doctor card — multi-layer 3D feel. The card itself is a tilt target
+   (uses the shared [data-tilt] utility). The glow + ring + glare layers
+   create the depth without needing WebGL. */
+.home-hero-aside {
+  position: relative; display: flex; justify-content: center;
+  perspective: 1400px;
+}
 .doctor-card {
   position: relative;
   width: 100%; max-width: 460px;
-  background:
-    radial-gradient(circle at top, rgba(8,131,149,0.18), transparent 65%),
-    linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
-  border-radius: 28px;
-  padding: 1.5rem 1.5rem 0;
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
+  border-radius: 30px;
   aspect-ratio: 4 / 5;
+  transform-style: preserve-3d;
+  animation: doctorFloat 8s ease-in-out infinite;
+}
+.doctor-card-glow {
+  position: absolute; inset: -8% -6% -10% -6%;
+  border-radius: 36px; z-index: 0;
+  background: radial-gradient(60% 60% at 50% 60%, rgba(8,131,149,.45) 0%, rgba(10,77,104,.15) 50%, rgba(10,77,104,0) 75%);
+  filter: blur(30px); opacity: .9;
+}
+.doctor-card-ring {
+  position: absolute; inset: 0;
+  border-radius: 30px; z-index: 1;
+  background: conic-gradient(from 200deg at 50% 50%,
+    rgba(255,255,255,0) 0deg,
+    rgba(93,212,212,.55) 60deg,
+    rgba(255,255,255,0) 130deg,
+    rgba(93,212,212,.45) 240deg,
+    rgba(255,255,255,0) 320deg);
+  padding: 2px;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: ringSpin 18s linear infinite;
+}
+.doctor-card-frame {
+  position: absolute; inset: 0; z-index: 2;
+  border-radius: 30px; overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 60%),
+    linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 60%, var(--color-primary-darker) 110%);
+  box-shadow:
+    0 30px 60px rgba(8,18,30,.28),
+    0 8px 20px rgba(8,131,149,.22),
+    0 0 0 1px rgba(255,255,255,.10) inset;
   display: flex; align-items: end; justify-content: center;
+  transform: translateZ(20px);
 }
-.doctor-card::before {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 100%, rgba(255,255,255,0.18), transparent 60%);
-  pointer-events: none;
+.doctor-card-frame::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% 110%, rgba(255,255,255,.22), transparent 55%);
 }
-.doctor-card img {
-  position: relative;
+.doctor-card-frame img {
+  position: relative; z-index: 1;
   width: 100%; height: 100%; object-fit: contain; object-position: bottom;
-  filter: drop-shadow(0 12px 24px rgba(0,0,0,.18));
+  filter: drop-shadow(0 18px 28px rgba(0,0,0,.22));
 }
+.doctor-card-glare {
+  position: absolute; inset: 0; z-index: 3;
+  border-radius: 30px; pointer-events: none;
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 30%),
+    rgba(255,255,255,.35) 0%,
+    rgba(255,255,255,0) 40%
+  );
+  opacity: 0; transition: opacity .25s ease;
+  mix-blend-mode: screen;
+}
+.doctor-card:hover .doctor-card-glare { opacity: 1; }
+
+@keyframes doctorFloat {
+  0%, 100% { transform: translateY(0) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
+  50%      { transform: translateY(-10px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)); }
+}
+@keyframes ringSpin {
+  to { transform: rotate(1turn); }
+}
+
+/* While the user is hovering and tilting, suspend the float animation so
+   the JS rotation takes precedence smoothly. */
+.doctor-card.is-tilting { animation: none; }
 
 @media (max-width: 900px) {
   .home-hero-inner { grid-template-columns: 1fr; text-align: start; }
   .home-hero-aside { order: -1; }
   .doctor-card { max-width: 320px; aspect-ratio: 1 / 1.1; }
   .trust-badges { grid-template-columns: 1fr; }
+  .hero-shape-3 { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-shape, .doctor-card, .doctor-card-ring { animation: none !important; }
+  .hero-spot { background: none; }
 }
 
 /* ===== Inner page hero ===== */
@@ -2312,6 +2492,24 @@ JS = r"""(() => {
       }
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     revealables.forEach(el => io.observe(el));
+  }
+
+  // ---- Cursor-follow spotlight (hero only, desktop only) ------------------
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduced) {
+    const spots = document.querySelectorAll('[data-spotlight]');
+    for (const sp of spots) {
+      let raf = 0;
+      sp.addEventListener('pointermove', (ev) => {
+        const rect = sp.getBoundingClientRect();
+        const x = ((ev.clientX - rect.left) / rect.width) * 100;
+        const y = ((ev.clientY - rect.top) / rect.height) * 100;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          sp.style.setProperty('--spot-x', x.toFixed(1) + '%');
+          sp.style.setProperty('--spot-y', y.toFixed(1) + '%');
+        });
+      }, { passive: true });
+    }
   }
 
   // ---- 3D tilt on hover ---------------------------------------------------

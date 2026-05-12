@@ -42,21 +42,33 @@
 </header>
 
 <main id="main">
-<section class="home-hero">
+<section class="home-hero" data-spotlight>
+  <div class="home-hero-bg" aria-hidden="true">
+    <span class="hero-shape hero-shape-1"></span>
+    <span class="hero-shape hero-shape-2"></span>
+    <span class="hero-shape hero-shape-3"></span>
+    <span class="hero-noise"></span>
+    <span class="hero-spot"></span>
+  </div>
   <div class="container home-hero-inner">
     <div class="home-hero-text">
-      <p class="hero-eyebrow">Consultant Ophthalmologist</p>
-      <h1 class="home-hero-title">Comprehensive care for clearer vision and a better life</h1>
-      <p class="home-hero-lede">A strong academic foundation, the Saudi Board in Ophthalmology, and a clinical fellowship from King Khaled Eye Specialist Hospital — specialised care in corneal, cataract, and vision-correction surgery.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="/en/contact-us/">Book an appointment</a>
+      <p class="hero-eyebrow reveal">Consultant Ophthalmologist</p>
+      <h1 class="home-hero-title reveal" data-reveal-delay="80"><span class="grad-text">Comprehensive care for clearer vision and a better life</span></h1>
+      <p class="home-hero-lede reveal" data-reveal-delay="160">A strong academic foundation, the Saudi Board in Ophthalmology, and a clinical fellowship from King Khaled Eye Specialist Hospital — specialised care in corneal, cataract, and vision-correction surgery.</p>
+      <div class="hero-ctas reveal" data-reveal-delay="240">
+        <a class="btn btn-primary btn-lg btn-depth" href="/en/contact-us/"><span>Book an appointment</span></a>
         <a class="btn btn-ghost btn-lg" href="/en/services/">Our services</a>
       </div>
-      <ul class="trust-badges"><li>Saudi Board in Ophthalmology</li><li>King Khaled Eye Specialist Hospital fellowship</li><li>Latest international equipment</li><li>Personalised follow-up care</li></ul>
+      <ul class="trust-badges"><li class="reveal" data-reveal-delay="300">Saudi Board in Ophthalmology</li><li class="reveal" data-reveal-delay="380">King Khaled Eye Specialist Hospital fellowship</li><li class="reveal" data-reveal-delay="460">Latest international equipment</li><li class="reveal" data-reveal-delay="540">Personalised follow-up care</li></ul>
     </div>
-    <div class="home-hero-aside">
-      <div class="doctor-card">
-        <img src="/uploads/2024/02/DSC08886-1-removebg-preview.png" alt="" loading="eager" decoding="async">
+    <div class="home-hero-aside reveal" data-reveal-delay="120">
+      <div class="doctor-card" data-tilt>
+        <span class="doctor-card-glow" aria-hidden="true"></span>
+        <span class="doctor-card-ring" aria-hidden="true"></span>
+        <div class="doctor-card-frame">
+          <img src="/uploads/2024/02/DSC08886-1-removebg-preview.png" alt="" loading="eager" decoding="async">
+        </div>
+        <span class="doctor-card-glare" aria-hidden="true"></span>
       </div>
     </div>
   </div>

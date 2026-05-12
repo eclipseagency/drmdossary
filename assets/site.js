@@ -50,6 +50,24 @@
     revealables.forEach(el => io.observe(el));
   }
 
+  // ---- Cursor-follow spotlight (hero only, desktop only) ------------------
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduced) {
+    const spots = document.querySelectorAll('[data-spotlight]');
+    for (const sp of spots) {
+      let raf = 0;
+      sp.addEventListener('pointermove', (ev) => {
+        const rect = sp.getBoundingClientRect();
+        const x = ((ev.clientX - rect.left) / rect.width) * 100;
+        const y = ((ev.clientY - rect.top) / rect.height) * 100;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          sp.style.setProperty('--spot-x', x.toFixed(1) + '%');
+          sp.style.setProperty('--spot-y', y.toFixed(1) + '%');
+        });
+      }, { passive: true });
+    }
+  }
+
   // ---- 3D tilt on hover ---------------------------------------------------
   // Elements with [data-tilt] get pointer-driven X/Y rotation + a glare
   // gradient positioned at the cursor. Disabled on coarse pointers and when
