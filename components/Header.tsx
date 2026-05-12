@@ -40,20 +40,19 @@ export function Header({ lang, pathname }: { lang: Lang; pathname: string }) {
   }, [])
 
   return (
-    <header className="sticky top-0 z-50 bg-transparent">
+    <header
+      className={cn(
+        'sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b transition-shadow duration-300',
+        scrolled
+          ? 'border-black/[0.06] shadow-[0_8px_24px_rgba(8,18,30,0.10)]'
+          : 'border-black/[0.04] shadow-[0_2px_8px_rgba(8,18,30,0.04)]',
+      )}
+    >
       <div className="container">
         <div
           className={cn(
             'flex items-center gap-3 lg:gap-4',
-            'mt-3 md:mt-4 mb-2',
-            'rounded-full bg-white/95 ring-1 ring-black/[0.03]',
-            'transition-shadow duration-300',
-            scrolled
-              ? 'shadow-[0_12px_32px_rgba(8,18,30,0.18)]'
-              : 'shadow-[0_8px_24px_rgba(8,18,30,0.10)]',
-            'pl-2 pr-2 sm:pl-3 sm:pr-3',
-            'py-1.5 sm:py-2',
-            'backdrop-blur-md',
+            'py-2 sm:py-2.5',
           )}
         >
           {/* Brand */}
