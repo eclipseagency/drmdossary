@@ -131,39 +131,14 @@ export function HomeHero({ lang }: { lang: Lang }) {
               className="group relative aspect-[4/5] animate-doctor-float respect-motion"
               style={{ transformStyle: 'preserve-3d' }}
             >
-              {/* Conic ring */}
-              <span
-                aria-hidden
-                className="absolute inset-0 rounded-[30px] bg-gradient-ring animate-ring-spin respect-motion"
-                style={{
-                  WebkitMask:
-                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  mask:
-                    'linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                  padding: 2,
-                }}
+              <Image
+                src={DOCTOR_HEADSHOT}
+                alt=""
+                width={460}
+                height={576}
+                priority
+                className="relative h-full w-full object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
               />
-              {/* Front frame */}
-              <div className="absolute inset-0 rounded-[30px] overflow-hidden bg-gradient-brand-soft shadow-lift ring-1 ring-white/15 flex items-end justify-center">
-                <span
-                  aria-hidden
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background:
-                      'radial-gradient(circle at 50% 0%, rgba(255,255,255,.18), transparent 60%), radial-gradient(circle at 50% 110%, rgba(255,255,255,.22), transparent 55%)',
-                  }}
-                />
-                <Image
-                  src={DOCTOR_HEADSHOT}
-                  alt=""
-                  width={460}
-                  height={576}
-                  priority
-                  className="relative h-full w-full object-contain object-bottom drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
-                />
-              </div>
             </TiltCard>
           </motion.div>
         </div>
