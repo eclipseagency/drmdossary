@@ -6,7 +6,6 @@ export const NAV_AR: Array<{ href: string; label: string }> = [
   { href: '/services/', label: 'الخدمات' },
   { href: '/blog/', label: 'المقالات' },
   { href: '/faqs/', label: 'الأسئلة الشائعة' },
-  { href: '/contact-us/', label: 'تواصل معنا' },
   { href: '/book/', label: 'احجز معنا' },
 ]
 
@@ -16,7 +15,6 @@ export const NAV_EN: Array<{ href: string; label: string }> = [
   { href: '/en/services/', label: 'Services' },
   { href: '/en/blog/', label: 'Blog' },
   { href: '/en/faq/', label: 'FAQ' },
-  { href: '/en/contact-us/', label: 'Contact' },
   { href: '/en/book/', label: 'Book' },
 ]
 
