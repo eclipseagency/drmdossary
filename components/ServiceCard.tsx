@@ -13,17 +13,17 @@ type Service = {
 /**
  * Service card with a three-state hover image reveal.
  *
- * Default — clean white card with a thin sliver of the service image
+ * Default, clean white card with a thin sliver of the service image
  * peeking at the bottom edge (the image is positioned absolute with
  * inset:0 and translated down 85% so only its top slice is visible at
  * the card's bottom).
  *
- * Hover — the image rises into place (translateY 0), a dark navy
+ * Hover, the image rises into place (translateY 0), a dark navy
  * overlay fades in on top of it, and every piece of text crossfades
  * from ink → white. The icon and "View Service" pill stay anchored at
  * the same coordinates; only their color changes.
  *
- * Transition — 550ms, cubic-bezier(0.22, 1, 0.36, 1) (ease-out-expo
+ * Transition, 550ms, cubic-bezier(0.22, 1, 0.36, 1) (ease-out-expo
  * feel) so the image lands softly. CSS-only, no JS, fully reduced-
  * motion safe (motion-reduce variants disable the slide).
  */
@@ -48,7 +48,7 @@ export function ServiceCard({
         hover:-translate-y-1 hover:shadow-lift
       "
     >
-      {/* Image — starts mostly hidden below the card edge, leaving a
+      {/* Image, starts mostly hidden below the card edge, leaving a
           thin sliver of itself visible at the very bottom of the card.
           Rises to fill the card on hover. */}
       <span className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-3xl" aria-hidden>
@@ -63,7 +63,7 @@ export function ServiceCard({
         </span>
       </span>
 
-      {/* Dark navy overlay — fades in on hover so the text stays
+      {/* Dark navy overlay, fades in on hover so the text stays
           readable against the image. */}
       <span
         aria-hidden
@@ -75,14 +75,14 @@ export function ServiceCard({
         "
       />
 
-      {/* Body — colors flip on hover, position is locked. */}
+      {/* Body, colors flip on hover, position is locked. */}
       <div
         className="
           relative z-[2] flex h-full flex-col gap-4
           transition-colors duration-[1500ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]
         "
       >
-        {/* Icon — stays in the same color disc, only the surrounding text changes */}
+        {/* Icon, stays in the same color disc, only the surrounding text changes */}
         <span
           className="
             flex h-14 w-14 items-center justify-center rounded-2xl
@@ -126,7 +126,7 @@ export function ServiceCard({
           {service.desc}
         </p>
 
-        {/* CTA pill — stays at the bottom-start corner */}
+        {/* CTA pill, stays at the bottom-start corner */}
         <span
           className="
             inline-flex items-center gap-2 self-start mt-2

@@ -92,7 +92,7 @@ export function Footer({ lang }: { lang: Lang }) {
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 justify-between text-white/65 text-sm">
           <p className="m-0">
-            © <YearTag /> {t.brandName} — {t.rights}.
+            © <YearTag /> {t.brandName}, {t.rights}.
           </p>
           <p className="m-0">
             <Link href="/privacy-policy/" className="text-white/85 hover:text-brand-300 transition-colors">

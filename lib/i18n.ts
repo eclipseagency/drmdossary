@@ -242,7 +242,7 @@ export const FAQ_EN: Array<{ q: string; a: string }> = [
 export const HERO_AR = {
   eyebrow: 'استشاري طب وجراحة العيون',
   title: 'رعاية شاملة لرؤية أوضح وحياة أفضل',
-  lede: 'خلفية أكاديمية راسخة، البورد السعودي في طب وجراحة العيون، وزمالة إكلينيكية من مستشفى الملك خالد التخصصي للعيون — رعاية متخصصة في القرنية، الماء الأبيض، وجراحات تصحيح النظر.',
+  lede: 'خلفية أكاديمية راسخة، البورد السعودي في طب وجراحة العيون، وزمالة إكلينيكية من مستشفى الملك خالد التخصصي للعيون, رعاية متخصصة في القرنية، الماء الأبيض، وجراحات تصحيح النظر.',
   primaryCta: { href: '/book/', label: 'احجز موعدك' },
   ghostCta: { href: '/services/', label: 'تعرّف على خدماتنا' },
 } as const
@@ -250,7 +250,7 @@ export const HERO_AR = {
 export const HERO_EN = {
   eyebrow: 'Consultant Ophthalmologist',
   title: 'Comprehensive care for clearer vision and a better life',
-  lede: 'A strong academic foundation, the Saudi Board in Ophthalmology, and a clinical fellowship from King Khaled Eye Specialist Hospital — specialised care in corneal, cataract, and vision-correction surgery.',
+  lede: 'A strong academic foundation, the Saudi Board in Ophthalmology, and a clinical fellowship from King Khaled Eye Specialist Hospital, specialised care in corneal, cataract, and vision-correction surgery.',
   primaryCta: { href: '/en/book/', label: 'Book an appointment' },
   ghostCta: { href: '/en/services/', label: 'Our services' },
 } as const

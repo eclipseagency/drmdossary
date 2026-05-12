@@ -8,9 +8,9 @@ import { BlogPreview } from '@/components/home/BlogPreview'
 import { HomeBooking } from '@/components/home/HomeBooking'
 
 export const metadata: Metadata = {
-  title: 'د. محمد الدوسري — استشاري طب وجراحة العيون | الرياض',
+  title: 'د. محمد الدوسري, استشاري طب وجراحة العيون | الرياض',
   description:
-    'رعاية شاملة لطب وجراحة العيون مع د. محمد الدوسري — البورد السعودي وزمالة من مستشفى الملك خالد التخصصي للعيون. تصحيح نظر، علاج مياه بيضاء، وجراحات قرنية.',
+    'رعاية شاملة لطب وجراحة العيون مع د. محمد الدوسري, البورد السعودي وزمالة من مستشفى الملك خالد التخصصي للعيون. تصحيح نظر، علاج مياه بيضاء، وجراحات قرنية.',
   alternates: { canonical: 'https://drmdossary.com/' },
 }
 

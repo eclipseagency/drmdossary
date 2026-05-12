@@ -73,8 +73,9 @@ export function HomeHero({ lang }: { lang: Lang }) {
       <span aria-hidden className="absolute inset-0 bg-noise opacity-[0.035] mix-blend-multiply pointer-events-none" />
 
       <div className="container relative py-16 md:py-24 lg:py-28">
-        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 lg:gap-16 items-center">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] lg:grid-rows-[auto_1fr] gap-8 lg:gap-x-16 lg:gap-y-6 items-start">
+          {/* 1. Title block — first on mobile, top-left on desktop */}
+          <div className="order-1 lg:col-start-1 lg:row-start-1">
             <Reveal>
               <p className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/80 backdrop-blur border border-brand-500/15 text-brand-600 text-sm font-semibold shadow-[0_2px_12px_rgba(8,131,149,0.10)]">
                 {hero.eyebrow}
@@ -83,39 +84,14 @@ export function HomeHero({ lang }: { lang: Lang }) {
             <h1 className="mt-5 text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-brand-900">
               <TextReveal text={hero.title} delay={120} step={55} />
             </h1>
-            <p className="mt-6 text-ink-muted text-base md:text-lg max-w-[56ch] leading-relaxed">
-              <TextReveal text={hero.lede} delay={500} step={22} offset={10} />
-            </p>
-            <Reveal delay={240}>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link href={hero.primaryCta.href} className="btn btn-lg btn-primary">
-                  {hero.primaryCta.label}
-                </Link>
-                <Link href={hero.ghostCta.href} className="btn btn-lg btn-ghost">
-                  {hero.ghostCta.label}
-                </Link>
-              </div>
-            </Reveal>
-            <ul className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 list-none p-0">
-              {badges.map((b, i) => (
-                <Reveal as="li" key={b} delay={300 + i * 80} className="flex items-start gap-3">
-                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 shadow-ring">
-                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="#088395" strokeWidth="2.5">
-                      <path d="M3.5 8.5l3 3 6-6" />
-                    </svg>
-                  </span>
-                  <span className="text-[15px] font-medium text-ink">{b}</span>
-                </Reveal>
-              ))}
-            </ul>
           </div>
 
-          {/* Doctor card — 3D layered stack */}
+          {/* 2. Doctor portrait — second on mobile, full-height right col on desktop */}
           <motion.div
             initial={reduced ? false : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 0.65, 0.32, 1] }}
-            className="relative w-full max-w-[380px] mx-auto"
+            className="order-2 relative w-full max-w-[380px] mx-auto lg:col-start-2 lg:row-start-1 lg:row-span-2"
             style={{ perspective: 1400 }}
           >
             {/* Outer glow */}
@@ -163,6 +139,32 @@ export function HomeHero({ lang }: { lang: Lang }) {
               </div>
             </TiltCard>
           </motion.div>
+
+          {/* 3. Lede + CTA + trust list — third on mobile, bottom-left on desktop */}
+          <div className="order-3 lg:col-start-1 lg:row-start-2">
+            <p className="text-ink-muted text-base md:text-lg max-w-[56ch] leading-relaxed">
+              <TextReveal text={hero.lede} delay={500} step={22} offset={10} />
+            </p>
+            <Reveal delay={240}>
+              <div className="mt-7 flex flex-wrap gap-3">
+                <Link href={hero.primaryCta.href} className="btn btn-primary">
+                  {hero.primaryCta.label}
+                </Link>
+              </div>
+            </Reveal>
+            <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 list-none p-0">
+              {badges.map((b, i) => (
+                <Reveal as="li" key={b} delay={300 + i * 80} className="flex items-start gap-3">
+                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-50 shadow-ring">
+                    <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="#088395" strokeWidth="2.5">
+                      <path d="M3.5 8.5l3 3 6-6" />
+                    </svg>
+                  </span>
+                  <span className="text-[15px] font-medium text-ink">{b}</span>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

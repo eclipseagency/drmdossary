@@ -69,7 +69,7 @@ export function BookingForm({ lang }: { lang: Lang }) {
         thanksSub: 'Our team will get back to you shortly to confirm the appointment.',
         reset: 'Send another request',
         whatsapp: 'Send via WhatsApp',
-        emailSubject: 'Booking request — Dr Mohammad Al Dossary clinic',
+        emailSubject: 'Booking request, Dr Mohammad Al Dossary clinic',
         required: 'Required',
       }
 

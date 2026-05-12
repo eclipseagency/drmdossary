@@ -51,7 +51,7 @@ export function getPosts(lang: Lang): PostEntry[] {
 
 /**
  * Posts to display in a blog listing for the given lang. If the lang
- * has no content of its own (English currently has zero posts — the
+ * has no content of its own (English currently has zero posts, the
  * original WordPress blog was Arabic-only), fall back to the other
  * language's posts so the listing is never empty. Callers can detect
  * the fallback via getPostsFallback().

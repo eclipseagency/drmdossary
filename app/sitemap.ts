@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     seen.add(url)
     urls.push({ url: base + url, priority, changeFrequency: freq, lastModified: new Date() })
   }
-  // Routes that no longer exist as standalone pages — they redirect to /book/.
+  // Routes that no longer exist as standalone pages, they redirect to /book/.
   const removed = new Set(['/contact-us/', '/en/contact-us/'])
   add('/', 1.0, 'weekly')
   add('/en/', 0.9, 'weekly')
