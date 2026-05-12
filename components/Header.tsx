@@ -64,7 +64,7 @@ export function Header({ lang, pathname }: { lang: Lang; pathname: string }) {
           >
             <span
               className={cn(
-                'flex items-center justify-center rounded-full bg-brand-500 p-1.5 shrink-0 transition-all duration-300',
+                'flex items-center justify-center shrink-0 transition-all duration-300',
                 scrolled ? 'h-9 w-9' : 'h-10 w-10',
               )}
             >
