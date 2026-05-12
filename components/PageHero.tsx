@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { type ReactNode } from 'react'
 import { Reveal } from './Reveal'
+import { TextReveal } from './TextReveal'
 
 export function PageHero({
   eyebrow,
@@ -43,15 +44,13 @@ export function PageHero({
                 </p>
               </Reveal>
             )}
-            <Reveal delay={80}>
-              <h1 className="text-3xl md:text-5xl text-white leading-tight">
-                <span className="grad-text-light">{title}</span>
-              </h1>
-            </Reveal>
+            <h1 className="text-3xl md:text-5xl text-white leading-tight">
+              <TextReveal text={title} className="grad-text-light" delay={120} step={55} />
+            </h1>
             {lede && (
-              <Reveal delay={160}>
-                <p className="mt-5 text-white/85 text-base md:text-lg max-w-2xl">{lede}</p>
-              </Reveal>
+              <p className="mt-5 text-white/85 text-base md:text-lg max-w-2xl">
+                <TextReveal text={lede} delay={500} step={22} offset={10} />
+              </p>
             )}
             {children && (
               <Reveal delay={240}>

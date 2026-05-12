@@ -1,6 +1,7 @@
 import { type Lang } from '@/lib/content'
 import { WHY_AR, WHY_EN } from '@/lib/i18n'
 import { Reveal } from '@/components/Reveal'
+import { TextReveal } from '@/components/TextReveal'
 
 const ICONS = [
   // 0: certified expertise (graduation cap)
@@ -35,12 +36,14 @@ export function WhyUs({ lang }: { lang: Lang }) {
   return (
     <section className="relative py-16 md:py-24 bg-white">
       <div className="container">
-        <Reveal>
-          <div className="max-w-2xl mx-auto mb-12 text-center">
-            <h2 className="text-3xl md:text-4xl text-brand-900 mb-3">{title}</h2>
-            <p className="text-ink-muted text-lg m-0">{lede}</p>
-          </div>
-        </Reveal>
+        <div className="max-w-2xl mx-auto mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl text-brand-900 mb-3">
+            <TextReveal text={title} step={50} />
+          </h2>
+          <p className="text-ink-muted text-lg m-0">
+            <TextReveal text={lede} delay={200} step={22} offset={10} />
+          </p>
+        </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {items.map((item, i) => (

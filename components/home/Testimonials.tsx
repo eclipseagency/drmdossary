@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { type Lang } from '@/lib/content'
+import { TextReveal } from '@/components/TextReveal'
 
 const IMAGES = Array.from({ length: 11 }, (_, i) => `/uploads/2024/03/${i + 1}.jpeg`)
 
@@ -146,15 +147,9 @@ export function Testimonials({ lang }: { lang: Lang }) {
               <span className="inline-block h-1.5 w-1.5 rounded-full bg-brand-400" />
               {eyebrow}
             </motion.span>
-            <motion.h2
-              initial={reduced ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, delay: 0.05 }}
-              className="mt-4 text-white text-4xl md:text-5xl leading-[1.1] tracking-tight max-w-[18ch]"
-            >
-              {title}
-            </motion.h2>
+            <h2 className="mt-4 text-white text-4xl md:text-5xl leading-[1.1] tracking-tight max-w-[18ch]">
+              <TextReveal text={title} step={55} />
+            </h2>
           </div>
 
           <motion.div
@@ -165,7 +160,7 @@ export function Testimonials({ lang }: { lang: Lang }) {
             className="lg:pb-2"
           >
             <p className="text-white/75 text-base md:text-lg leading-relaxed mb-6 max-w-md">
-              {lede}
+              <TextReveal text={lede} delay={400} step={22} offset={10} />
             </p>
             <Link
               href={seeAllHref}
