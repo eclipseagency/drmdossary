@@ -68,7 +68,11 @@ export function Footer({ lang }: { lang: Lang }) {
                 <span className="uppercase text-2xs tracking-wider text-white/55">
                   {c.phoneLabel}
                 </span>
-                <a href={`tel:${c.phoneTel}`} className="text-white hover:text-brand-300 transition-colors">
+                <a
+                  href={`tel:${c.phoneTel}`}
+                  dir="ltr"
+                  className="text-white hover:text-brand-300 transition-colors inline-block"
+                >
                   {c.phoneDisplay}
                 </a>
               </li>

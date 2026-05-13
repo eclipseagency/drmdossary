@@ -42,7 +42,11 @@ export function ContactCards({ lang }: { lang: Lang }) {
       icon: Icons.phone,
       label: c.phoneLabel,
       value: (
-        <a href={`tel:${c.phoneTel}`} className="text-brand-900 font-bold hover:text-brand-500 transition-colors">
+        <a
+          href={`tel:${c.phoneTel}`}
+          dir="ltr"
+          className="text-brand-900 font-bold hover:text-brand-500 transition-colors inline-block"
+        >
           {c.phoneDisplay}
         </a>
       ),
