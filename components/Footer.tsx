@@ -70,10 +70,9 @@ export function Footer({ lang }: { lang: Lang }) {
                 </span>
                 <a
                   href={`tel:${c.phoneTel}`}
-                  dir="ltr"
-                  className="text-white hover:text-brand-300 transition-colors inline-block"
+                  className="text-white hover:text-brand-300 transition-colors"
                 >
-                  {c.phoneDisplay}
+                  <bdi>{c.phoneDisplay}</bdi>
                 </a>
               </li>
               <li className="flex flex-col gap-0.5">
