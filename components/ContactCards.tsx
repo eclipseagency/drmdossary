@@ -44,10 +44,9 @@ export function ContactCards({ lang }: { lang: Lang }) {
       value: (
         <a
           href={`tel:${c.phoneTel}`}
-          dir="ltr"
-          className="text-brand-900 font-bold hover:text-brand-500 transition-colors inline-block"
+          className="text-brand-900 font-bold hover:text-brand-500 transition-colors"
         >
-          {c.phoneDisplay}
+          <bdi>{c.phoneDisplay}</bdi>
         </a>
       ),
     },
